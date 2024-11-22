@@ -1,17 +1,13 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-// #include <opencv2/opencv.hpp>
-// Messages
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
-// Standard
-// #include <limits>
-// #include <stdexcept>
 
 namespace common {
+namespace msgs {
 
 /**
  * `inline` function. Creates `geometry_msgs` `Point` with given `x`,
@@ -90,60 +86,7 @@ inline geometry_msgs::msg::Vector3 create_vector3(
   return vector;
 }
 
-/**
- * Finds the maximum element of the OpenCV matrix.
- * @param mat constant reference of `cv::Mat` for which we are looking
- * for the maximum.
- * @return maximum value of the matrix of type `<T>`.
- * @exception Re-throw `std::out_of_range`.
- */
-// template <typename T>
-// T cv_matrix_max(const cv::Mat& matrix) { 
-//     try {
-//         T max_elem = std::numeric_limits<T>::min();
-
-//         for (int i = 0; i < matrix.rows; i++) {
-//             for (int j = 0; j < matrix.cols; j++) {
-//                 if (matrix.at<T>(i, j) > max_elem) {
-//                     max_elem = matrix.at<T>(i, j);
-//                 }
-//             }
-//         }
-//     }
-//     catch(const std::out_of_range& error) {
-//         throw;
-//     }
-
-//     return max_elem;
-// }
-
-/**
- * Finds the minimum element of the OpenCV matrix.
- * @param mat constant reference of `cv::Mat` for which we are looking
- * for the minimum.
- * @return minimum value of the matrix of type `<T>`.
- * @exception Re-throw `std::out_of_range`.
- */
-// template <typename T>
-// T cv_matrix_min(const cv::Mat& matrix) {
-//     try {
-//         T min_elem = numeric_limits<T>::max();
-
-//         for (int i = 0; i < matrix.rows; i++) {
-//             for (int j = 0; j < matrix.cols; j++) {
-//                 if (matrix.at<T>(i, j) < min_elem) {
-//                     min_elem = matrix.at<T>(i, j);
-//                 }
-//             }
-//         }
-//     }
-//     catch(const std::out_of_range& error) {
-//         throw;
-//     }
-
-//     return min_elem;
-// }
-
+}
 }
 
 #endif

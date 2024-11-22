@@ -1,0 +1,4 @@
+[submodule "fs_msgs"]
+	path = fs_msgs
+	url = git@github.com:PGRacingDriverless/fs_msgs.git
+	branch = ros2

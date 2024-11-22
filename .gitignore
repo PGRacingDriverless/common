@@ -1,0 +1,23 @@
+build/
+install/
+log/
+
+# Python cache
+**/__pycache__/
+
+# VS Code
+.vscode
+
+# JetBrains
+.idea
+
+# Emacs
+*~
+.#*
+
+# macOS
+.DS_Store
+
+# Generated docs
+*.dox
+*.wikidoc
