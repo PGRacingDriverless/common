@@ -1,9 +1,5 @@
 #include "common/math.hpp"
 
-double degrees_to_radians(double degrees){
-    return degrees * M_PI/ 180.0;
-}
-
 double calculate_distance(double x1, double y1, double x2, double y2) {
     return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
 }
@@ -22,4 +18,3 @@ point Vector2D::end_point_extended_vector(double new_length){
     y = start_y + new_length * normalized_y;
     return point(x,y);
 }
-

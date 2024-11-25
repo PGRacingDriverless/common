@@ -4,8 +4,6 @@
 #include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 
-double degrees_to_radians(double degrees);
-
 typedef double coordinate_type;
 typedef boost::geometry::model::d2::point_xy<coordinate_type> point;
 
