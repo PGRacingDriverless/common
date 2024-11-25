@@ -39,7 +39,7 @@ namespace pgr::visualization
         boost::listS, boost::vecS, boost::undirectedS, boost::no_property,
         boost::property<boost::edge_weight_t, double>>;
 
-    static void set_marker_color(visualization_msgs::msg::Marker &marker, pgr::visualization::Color color)
+    static void set_marker_color(visualization_msgs::msg::Marker &marker, const pgr::visualization::Color &color)
     {
         marker.color.r = color.r;
         marker.color.g = color.g;
@@ -51,7 +51,7 @@ namespace pgr::visualization
     static void publish_rviz_visualization_message(rclcpp::Node *package_class, rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_publisher, const visualization_msgs::msg::Marker marker);
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    static visualization_msgs::msg::Marker create_rviz_cone_visualization_message(std::string name_space, const Cone &cone, int marker_count)
+    static visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const Cone &cone, const int marker_count)
     {
         visualization_msgs::msg::Marker marker;
         marker.header.frame_id = "/map";
@@ -97,10 +97,8 @@ namespace pgr::visualization
     }
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    static visualization_msgs::msg::Marker create_rviz_line_visualization_message(
-        std::string name_space, const Cone &cone1, const Cone &cone2, size_t marker_id)
+    static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const Cone &cone1, const Cone &cone2, const size_t marker_id)
     {
-
         visualization_msgs::msg::Marker marker_line;
         marker_line.header.frame_id = "/map";
         marker_line.header.stamp = rclcpp::Time();
@@ -143,10 +141,8 @@ namespace pgr::visualization
     }
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    static visualization_msgs::msg::Marker create_rviz_vector_visualization_message(
-        std::string name_space, double start_x, double start_y, double end_x, double end_y, size_t marker_id, pgr::visualization::Color color)
+    static visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const pgr::visualization::Color &color)
     {
-
         // Config marker to display vector in RViz2
         visualization_msgs::msg::Marker direction_vector;
         direction_vector.header.stamp = rclcpp::Time();
@@ -181,7 +177,7 @@ namespace pgr::visualization
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
     static visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
-        std::string name_space, boost::geometry::model::polygon<point> final_match_area, size_t marker_id, pgr::visualization::Color color)
+        const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const pgr::visualization::Color &color)
     {
 
         // Config marker to display final contour in RViz2
@@ -216,9 +212,9 @@ namespace pgr::visualization
         const float x,
         const float y,
         const float diameter,
-        const pgr::visualization::Color color,
-        const std::string name_space,
-        const std::string frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
+        const std::string &frame_id,
         const float marker_lifetime_s)
     {
 
@@ -269,9 +265,9 @@ namespace pgr::visualization
         const float x,
         const float y,
         const float diameter,
-        const std::string frame_id,
-        const pgr::visualization::Color color,
-        const std::string name_space,
+        const std::string &frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
 
@@ -316,11 +312,11 @@ namespace pgr::visualization
     // sets parameters for given marker
     static void set_marker_parameters(
         visualization_msgs::msg::Marker &marker,
-        const pgr::visualization::Color color,
-        const std::string name_space,
-        const std::string frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
+        const std::string &frame_id,
         const float marker_lifetime_s,
-        const std::size_t marker_id,
+        const size_t marker_id,
         const int32_t type,
         const int32_t action,
         const float scale_x,
@@ -349,12 +345,12 @@ namespace pgr::visualization
     // Takes a Cone object to create a label over the given cone
     // used in create_id_labels_for_cone_array()
     static visualization_msgs::msg::Marker create_text_label_marker_from_cone(
-        Cone &cone,
-        const std::string text,
-        const std::string name_space,
-        const std::string frame_id,
+        const Cone &cone,
+        const std::string &text,
+        const std::string &name_space,
+        const std::string &frame_id,
         const float marker_lifetime_s,
-        const std::size_t marker_id,
+        const size_t marker_id,
         const float scale_x,
         const float scale_y,
         const float scale_z)
@@ -386,10 +382,10 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates text label over cones with correspoding index/id
     static visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        ConeArray &cone_array,
-        const std::string frame_id,
-        const std::string text,
-        const std::string name_space,
+        const ConeArray &cone_array,
+        const std::string &frame_id,
+        const std::string &text,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
 
@@ -408,10 +404,10 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates cubes in given coordinates of cones
     static visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        ConeArray &cone_array,
-        const std::string frame_id,
-        const pgr::visualization::Color color,
-        const std::string name_space,
+        const ConeArray &cone_array,
+        const std::string &frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
 
@@ -446,10 +442,10 @@ namespace pgr::visualization
 
     // Takes ConeArray and connects given cone positions with lines
     static visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        ConeArray &cone_array,
-        const std::string frame_id,
-        const pgr::visualization::Color color,
-        const std::string name_space,
+        const ConeArray &cone_array,
+        const std::string &frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
         static std::size_t marker_id = 0;
@@ -490,9 +486,9 @@ namespace pgr::visualization
     // Takes ConePairArray and connects all points beetween cone pairs
     static visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
         ConePairArray &cone_pair_array,
-        const std::string frame_id,
-        const pgr::visualization::Color color,
-        const std::string name_space,
+        const std::string &frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
         static std::size_t marker_id = 0;
@@ -533,9 +529,9 @@ namespace pgr::visualization
     static visualization_msgs::msg::Marker create_line_list_from_cone_graph(
         const ConeGraph &cone_graph,
         const ConeArray &cone_array,
-        const std::string frame_id,
-        const pgr::visualization::Color color,
-        const std::string name_space,
+        const std::string &frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
         const float marker_lifetime_s)
     {
 
@@ -585,12 +581,12 @@ namespace pgr::visualization
 
     [[deprecated("We are using diffrent way of publishing")]]
     static void publish_cone_graph_as_lines(
-        rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_array_publisher,
+        const rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr &marker_array_publisher,
         const ConeGraph &cone_graph,
         const ConeArray &cone_array,
-        const pgr::visualization::Color color,
-        const std::string name_space,
-        const std::string frame_id,
+        const pgr::visualization::Color &color,
+        const std::string &name_space,
+        const std::string &frame_id,
         const float marker_lifetime_s)
     {
 

@@ -21,7 +21,7 @@ namespace pgr::cones
         }
     }
 
-    static void separate_cone_sides_from_cone_pairs(ConePairArray &cone_pair_array, ConeArray &inner_cone_array, ConeArray &outer_cone_array)
+    static void separate_cone_sides_from_cone_pairs(const ConePairArray &cone_pair_array, ConeArray &inner_cone_array, ConeArray &outer_cone_array)
     {
         for (auto &item : cone_pair_array.get_pairs())
         {

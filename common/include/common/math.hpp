@@ -9,7 +9,7 @@ typedef boost::geometry::model::d2::point_xy<coordinate_type> point;
 
 namespace pgr::math
 {
-    inline double calculate_distance(double x1, double y1, double x2, double y2)
+    inline double calculate_distance(const double x1, const double y1, const double x2, const double y2)
     {
         return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
     }
@@ -26,7 +26,7 @@ namespace pgr::math
         double normalized_x;
         double normalized_y;
 
-        Vector2D(double start_x, double start_y, double end_x, double end_y) : start_x(start_x), start_y(start_y), end_x(end_x), end_y(end_y)
+        Vector2D(const double start_x, const double start_y, const double end_x, const double end_y) : start_x(start_x), start_y(start_y), end_x(end_x), end_y(end_y)
         {
             length = calculate_distance(start_x, start_y, end_x, end_y);
             dx = end_x - start_x;
@@ -35,12 +35,9 @@ namespace pgr::math
             normalized_y = dy / length;
         }
 
-        point end_point_extended_vector(double new_length)
+        inline point end_point_extended_vector(const double new_length)
         {
-            double x, y;
-            x = start_x + new_length * normalized_x;
-            y = start_y + new_length * normalized_y;
-            return point(x, y);
+            return point(start_x + new_length * normalized_x, start_y + new_length * normalized_y);
         }
     } Vector2D;
 };
