@@ -19,12 +19,15 @@ ament_auto_find_build_dependencies()
 include_directories(include ${PCL_INCLUDE_DIRS})
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-    src/math.cpp
-    src/cones.cpp
-    src/visualization.cpp
+    include/common/math.hpp
+    include/common/cones.hpp
+    include/common/visualization.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
 
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
