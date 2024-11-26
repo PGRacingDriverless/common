@@ -1,14 +1,13 @@
-#ifndef COMMON_HPP
-#define COMMON_HPP
+#ifndef COMMON_MSG_HPP
+#define COMMON_MSG_HPP
 
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
 
-namespace common {
-namespace msgs {
-
+namespace pgr::msg
+{
 /**
  * `inline` function. Creates `geometry_msgs` `Point` with given `x`,
  * `y` and `z`.
@@ -86,7 +85,6 @@ inline geometry_msgs::msg::Vector3 create_vector3(
   return vector;
 }
 
-}
-}
+};
 
 #endif

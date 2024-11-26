@@ -2,11 +2,10 @@
 #define COMMON_VISUALIZATION_HPP
 
 #include "common/math.hpp"
+#include "common/cones.hpp"
 
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "cones/cone_array.hpp"
-#include "cones/cone_pair_array.hpp"
 
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "tf2/LinearMath/Quaternion.h"
@@ -51,17 +50,17 @@ namespace pgr::visualization
     static void publish_rviz_visualization_message(rclcpp::Node *package_class, rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_publisher, const visualization_msgs::msg::Marker marker);
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    static visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const Cone &cone, const int marker_count)
+    static visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::cones::Cone &cone, const int marker_count)
     {
         visualization_msgs::msg::Marker marker;
         marker.header.frame_id = "/map";
         marker.header.stamp = rclcpp::Time();
         marker.ns = name_space;
-        if (cone.get_side() == Cone::TrackSide::INNER)
+        if (cone.get_side() == pgr::cones::Cone::TrackSide::INNER)
         {
             marker.id = marker_count;
         }
-        else if (cone.get_side() == Cone::TrackSide::OUTER)
+        else if (cone.get_side() == pgr::cones::Cone::TrackSide::OUTER)
         {
             marker.id = 1000 - marker_count;
         }
@@ -76,15 +75,15 @@ namespace pgr::visualization
         marker.scale.y = 1;
         marker.scale.z = 1;
 
-        if (cone.get_color() == Cone::Color::YELLOW)
+        if (cone.get_color() == pgr::cones::Cone::Color::YELLOW)
         {
             set_marker_color(marker, pgr::visualization::YELLOW);
         }
-        else if (cone.get_color() == Cone::Color::BLUE)
+        else if (cone.get_color() == pgr::cones::Cone::Color::BLUE)
         {
             set_marker_color(marker, pgr::visualization::BLUE);
         }
-        else if (cone.get_color() == Cone::Color::ORANGE)
+        else if (cone.get_color() == pgr::cones::Cone::Color::ORANGE)
         {
             set_marker_color(marker, pgr::visualization::ORANGE);
         }
@@ -97,7 +96,7 @@ namespace pgr::visualization
     }
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const Cone &cone1, const Cone &cone2, const size_t marker_id)
+    static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::cones::Cone &cone1, const pgr::cones::Cone &cone2, const size_t marker_id)
     {
         visualization_msgs::msg::Marker marker_line;
         marker_line.header.frame_id = "/map";
@@ -108,11 +107,11 @@ namespace pgr::visualization
         marker_line.action = visualization_msgs::msg::Marker::ADD;
         marker_line.lifetime = rclcpp::Duration(2, 0);
 
-        if (cone1.get_side() == Cone::TrackSide::INNER && cone2.get_side() == Cone::TrackSide::INNER)
+        if (cone1.get_side() == pgr::cones::Cone::TrackSide::INNER && cone2.get_side() == pgr::cones::Cone::TrackSide::INNER)
         {
             set_marker_color(marker_line, pgr::visualization::YELLOW);
         }
-        else if (cone1.get_side() == Cone::TrackSide::OUTER && cone2.get_side() == Cone::TrackSide::OUTER)
+        else if (cone1.get_side() == pgr::cones::Cone::TrackSide::OUTER && cone2.get_side() == pgr::cones::Cone::TrackSide::OUTER)
         {
             set_marker_color(marker_line, pgr::visualization::BLUE);
         }
@@ -345,7 +344,7 @@ namespace pgr::visualization
     // Takes a Cone object to create a label over the given cone
     // used in create_id_labels_for_cone_array()
     static visualization_msgs::msg::Marker create_text_label_marker_from_cone(
-        const Cone &cone,
+        const pgr::cones::Cone &cone,
         const std::string &text,
         const std::string &name_space,
         const std::string &frame_id,
@@ -382,7 +381,7 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates text label over cones with correspoding index/id
     static visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        const ConeArray &cone_array,
+        const pgr::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const std::string &text,
         const std::string &name_space,
@@ -392,7 +391,7 @@ namespace pgr::visualization
         visualization_msgs::msg::MarkerArray text_labels_array;
         std::size_t marker_id = 0;
 
-        for (Cone cone : cone_array.get_cones())
+        for (pgr::cones::Cone cone : cone_array.get_cones())
         {
             visualization_msgs::msg::Marker label = create_text_label_marker_from_cone(cone, text, name_space, frame_id, marker_lifetime_s, marker_id, 1, 1, 1);
             text_labels_array.markers.push_back(label);
@@ -404,7 +403,7 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates cubes in given coordinates of cones
     static visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        const ConeArray &cone_array,
+        const pgr::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -425,7 +424,7 @@ namespace pgr::visualization
             visualization_msgs::msg::Marker::ADD,
             1, 1, 1);
 
-        for (Cone cone : cone_array.get_cones())
+        for (pgr::cones::Cone cone : cone_array.get_cones())
         {
             geometry_msgs::msg::Point cone_point;
 
@@ -442,7 +441,7 @@ namespace pgr::visualization
 
     // Takes ConeArray and connects given cone positions with lines
     static visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        const ConeArray &cone_array,
+        const pgr::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -485,7 +484,7 @@ namespace pgr::visualization
 
     // Takes ConePairArray and connects all points beetween cone pairs
     static visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
-        ConePairArray &cone_pair_array,
+        pgr::cones::ConePairArray &cone_pair_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -528,7 +527,7 @@ namespace pgr::visualization
 
     static visualization_msgs::msg::Marker create_line_list_from_cone_graph(
         const ConeGraph &cone_graph,
-        const ConeArray &cone_array,
+        const pgr::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -559,8 +558,8 @@ namespace pgr::visualization
             auto target_vertex = boost::target(*ei, cone_graph);
 
             // Get the corresponding cones
-            const Cone &cone1 = cone_array.get_cones()[source_vertex];
-            const Cone &cone2 = cone_array.get_cones()[target_vertex];
+            const pgr::cones::Cone &cone1 = cone_array.get_cones()[source_vertex];
+            const pgr::cones::Cone &cone2 = cone_array.get_cones()[target_vertex];
 
             // Add points to the marker
             geometry_msgs::msg::Point line_point;
@@ -583,7 +582,7 @@ namespace pgr::visualization
     static void publish_cone_graph_as_lines(
         const rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr &marker_array_publisher,
         const ConeGraph &cone_graph,
-        const ConeArray &cone_array,
+        const pgr::cones::ConeArray &cone_array,
         const pgr::visualization::Color &color,
         const std::string &name_space,
         const std::string &frame_id,
@@ -616,8 +615,8 @@ namespace pgr::visualization
             auto target_vertex = boost::target(*ei, cone_graph);
 
             // Get the corresponding cones
-            const Cone &cone1 = cone_array.get_cones()[source_vertex];
-            const Cone &cone2 = cone_array.get_cones()[target_vertex];
+            const pgr::cones::Cone &cone1 = cone_array.get_cones()[source_vertex];
+            const pgr::cones::Cone &cone2 = cone_array.get_cones()[target_vertex];
 
             // Add points to the marker
             geometry_msgs::msg::Point line_point;
