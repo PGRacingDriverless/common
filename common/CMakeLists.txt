@@ -19,9 +19,9 @@ ament_auto_find_build_dependencies()
 include_directories(include ${PCL_INCLUDE_DIRS})
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-    include/common/math.hpp
-    include/common/cones.hpp
-    include/common/visualization.hpp
+    src/math.cpp
+    src/cones.cpp
+    src/visualization.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})

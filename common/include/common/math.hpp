@@ -14,7 +14,7 @@ namespace pgr::math
         return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
     }
 
-    typedef struct Vector2D
+    struct Vector2D
     {
         double start_x;
         double start_y;
@@ -39,7 +39,7 @@ namespace pgr::math
         {
             return point(start_x + new_length * normalized_x, start_y + new_length * normalized_y);
         }
-    } Vector2D;
+    };
 };
 
 #endif

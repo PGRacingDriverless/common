@@ -5,11 +5,6 @@
 
 namespace pgr::cones
 {
-    class Cone;
-    class ConeArray;
-    class ConePairArray;
-    struct ConePair;
-
     class Cone
     {
     public:
@@ -25,168 +20,82 @@ namespace pgr::cones
             ORANGE
         };
 
-        Cone() : m_x(0), m_y(0), m_side(INNER), m_color(YELLOW) {} // default constructor
-        Cone(double x, double y, TrackSide side, Color color) : m_x{x}, m_y{y}, m_side{side}, m_color{color} {}
+        Cone() = default;
+        Cone(double x, double y, TrackSide side, Color color);
 
-        double get_x() const
-        {
-            return m_x;
-        }
-        void set_x(double x)
-        {
-            m_x = x;
-        }
+        double get_x() const;
+        void set_x(double x);
 
-        double get_y() const
-        {
-            return m_y;
-        }
-        void set_y(double y)
-        {
-            m_y = y;
-        }
+        double get_y() const;
+        void set_y(double y);
 
-        TrackSide get_side() const
-        {
-            return m_side;
-        }
-        void set_side(TrackSide side)
-        {
-            m_side = side;
-        }
+        TrackSide get_side() const;
+        void set_side(TrackSide side);
 
-        Color get_color() const
-        {
-            return m_color;
-        }
-        void set_color(Color color)
-        {
-            m_color = color;
-        }
-
+        Color get_color() const;
+        void set_color(Color color);
     private:
-        double m_x;
-        double m_y;
-        TrackSide m_side;
-        Color m_color;
+        double m_x = 0;
+        double m_y = 0;
+        TrackSide m_side = INNER;
+        Color m_color = YELLOW;
     };
-
-    struct ConePair
-    {
-        pgr::cones::Cone cone_outer; // cone1
-        pgr::cones::Cone cone_inner; // cone2
-    };
-
-    typedef class Sth;
 
     class ConeArray
     {
     public:
-        ConeArray() {}
-        ConeArray(const ConeArray &other)
-        {
-            m_cone_array = other.m_cone_array;
-        }
-        ConeArray(ConeArray &&other)
-        {
-            m_cone_array = std::move(other.m_cone_array);
-        }
+        ConeArray() = default;
+        ConeArray(const ConeArray &other);
+        ConeArray(ConeArray &&other);
 
-        void add_cone(const Cone &cone)
-        {
-            m_cone_array.push_back(cone);
-        }
+        void add_cone(const Cone &cone);
 
-        std::size_t size() const
-        {
-            return m_cone_array.size();
-        }
-        void clear()
-        {
-            m_cone_array.clear();
-        }
-        const std::vector<Cone> &get_cones() const // deprecated
-        {
-            return m_cone_array;
-        }
-        void set_cones(const std::vector<Cone> &cones) // deprecated
-        {
-            m_cone_array = cones;
-        }
-        Cone operator[](const std::size_t index) const
-        {
-            return m_cone_array[index];
-        }
+        std::size_t size() const;
 
-        void operator=(const ConeArray &rhs)
-        {
-            m_cone_array = rhs.m_cone_array;
-        }
+        void clear();
 
-        void operator=(ConeArray &&rhs)
-        {
-            m_cone_array = std::move(rhs.m_cone_array);
-        }
+        const std::vector<Cone> &get_cones() const;
+        void set_cones(const std::vector<Cone> &cones);
 
+        Cone operator[](const std::size_t index) const;
+
+        void operator=(const ConeArray &rhs);
+
+        void operator=(ConeArray &&rhs);
     private:
         std::vector<Cone> m_cone_array;
+    };
+
+    struct ConePair
+    {
+        pgr::cones::Cone cone_outer;
+        pgr::cones::Cone cone_inner;
     };
 
     class ConePairArray
     {
     public:
-        ConePairArray() {}
+        ConePairArray() = default;
 
-        ConePairArray(const ConePairArray &other)
-        {
-            m_cone_pairs = other.m_cone_pairs;
-        }
+        ConePairArray(const ConePairArray &other);
 
-        ConePairArray(ConePairArray &&other)
-        {
-            m_cone_pairs = std::move(other.m_cone_pairs);
-        }
+        ConePairArray(ConePairArray &&other);
 
-        void add_pair(const ConePair &pair)
-        {
-            m_cone_pairs.push_back(pair);
-        }
+        void add_pair(const ConePair &pair);
 
-        void set_pairs(const std::vector<ConePair> &pairs)
-        {
-            m_cone_pairs = pairs;
-        }
+        void set_pairs(const std::vector<ConePair> &pairs);
 
-        void clear()
-        {
-            m_cone_pairs.clear();
-        }
+        void clear();
 
-        std::size_t size() const
-        {
-            return m_cone_pairs.size();
-        }
+        std::size_t size() const;
 
-        const std::vector<ConePair> &get_pairs() const
-        {
-            return m_cone_pairs;
-        }
+        const std::vector<ConePair> &get_pairs() const;
 
-        ConePair operator[](const std::size_t index) const
-        {
-            return m_cone_pairs[index];
-        }
+        ConePair operator[](const std::size_t index) const;
 
-        void operator=(const ConePairArray &rhs)
-        {
-            m_cone_pairs = rhs.m_cone_pairs;
-        }
+        void operator=(const ConePairArray &rhs);
 
-        void operator=(ConePairArray &&rhs)
-        {
-            m_cone_pairs = std::move(rhs.m_cone_pairs);
-        }
-
+        void operator=(ConePairArray &&rhs);
     private:
         std::vector<ConePair> m_cone_pairs;
     };
