@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace pgr::cones
+namespace pgr
 {
     class Cone
     {
@@ -34,6 +34,10 @@ namespace pgr::cones
 
         Color get_color() const;
         void set_color(Color color);
+
+        bool operator==(const Cone &cone) const;
+        bool operator!=(const Cone &cone) const;
+
     private:
         double m_x = 0;
         double m_y = 0;
@@ -41,70 +45,32 @@ namespace pgr::cones
         Color m_color = YELLOW;
     };
 
-    class ConeArray
+    class ConePair
     {
     public:
-        ConeArray() = default;
-        ConeArray(const ConeArray &other);
-        ConeArray(ConeArray &&other);
+        ConePair() = default;
+        ConePair(const Cone &cone_outer, const Cone &cone_inner);
 
-        void add_cone(const Cone &cone);
+        Cone getOuter() const;
+        void setOuter(const Cone &cone_outer);
 
-        std::size_t size() const;
+        Cone getInner() const;
+        void setInner(const Cone &cone_inner);
 
-        void clear();
+        bool operator==(const ConePair &cone_pair) const;
+        bool operator!=(const ConePair &cone_pair) const;
 
-        const std::vector<Cone> &get_cones() const;
-        void set_cones(const std::vector<Cone> &cones);
-
-        Cone operator[](const std::size_t index) const;
-
-        void operator=(const ConeArray &rhs);
-
-        void operator=(ConeArray &&rhs);
     private:
-        std::vector<Cone> m_cone_array;
+        Cone cone_outer;
+        Cone cone_inner;
     };
 
-    struct ConePair
-    {
-        pgr::cones::Cone cone_outer;
-        pgr::cones::Cone cone_inner;
-    };
+    using ConeArray = std::vector<Cone>;
+    using ConePairArray = std::vector<ConePair>;
 
-    class ConePairArray
-    {
-    public:
-        ConePairArray() = default;
+    inline void separate_cone_sides(const ConeArray &input_cone_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array);
 
-        ConePairArray(const ConePairArray &other);
-
-        ConePairArray(ConePairArray &&other);
-
-        void add_pair(const ConePair &pair);
-
-        void set_pairs(const std::vector<ConePair> &pairs);
-
-        void clear();
-
-        std::size_t size() const;
-
-        const std::vector<ConePair> &get_pairs() const;
-
-        ConePair operator[](const std::size_t index) const;
-
-        void operator=(const ConePairArray &rhs);
-
-        void operator=(ConePairArray &&rhs);
-    private:
-        std::vector<ConePair> m_cone_pairs;
-    };
-
-    inline void separate_cone_sides(const std::vector<pgr::cones::Cone> &input_cone_array, pgr::cones::ConeArray &inner_cone_array, pgr::cones::ConeArray &outer_cone_array);
-
-    inline void separate_cone_sides_from_cone_pairs(const pgr::cones::ConePairArray &cone_pair_array, pgr::cones::ConeArray &inner_cone_array, pgr::cones::ConeArray &outer_cone_array);
-
-    inline bool check_pairs_equality(const pgr::cones::ConePair &pair1, const pgr::cones::ConePair &pair2);
+    inline void separate_cone_sides_from_cone_pairs(const pgr::ConePairArray &cone_pair_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array);
 };
 
 #endif

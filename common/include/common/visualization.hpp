@@ -44,10 +44,10 @@ namespace pgr::visualization
     void publish_rviz_visualization_message(rclcpp::Node *package_class, rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_publisher, const visualization_msgs::msg::Marker marker);
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::cones::Cone &cone, const int marker_count);
+    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::Cone &cone, const int marker_count);
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::cones::Cone &cone1, const pgr::cones::Cone &cone2, const size_t marker_id);
+    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::Cone &cone1, const pgr::Cone &cone2, const size_t marker_id);
 
     [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const pgr::visualization::Color &color);
@@ -93,7 +93,7 @@ namespace pgr::visualization
     // Takes a Cone object to create a label over the given cone
     // used in create_id_labels_for_cone_array()
     visualization_msgs::msg::Marker create_text_label_marker_from_cone(
-        const pgr::cones::Cone &cone,
+        const pgr::Cone &cone,
         const std::string &text,
         const std::string &name_space,
         const std::string &frame_id,
@@ -105,7 +105,7 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates text label over cones with correspoding index/id
     visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        const pgr::cones::ConeArray &cone_array,
+        const pgr::ConeArray &cone_array,
         const std::string &frame_id,
         const std::string &text,
         const std::string &name_space,
@@ -113,7 +113,7 @@ namespace pgr::visualization
 
     // Takes a ConeArray and creates cubes in given coordinates of cones
     visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        const pgr::cones::ConeArray &cone_array,
+        const pgr::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -121,7 +121,7 @@ namespace pgr::visualization
 
     // Takes ConeArray and connects given cone positions with lines
     visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        const pgr::cones::ConeArray &cone_array,
+        const pgr::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -129,7 +129,7 @@ namespace pgr::visualization
 
     // Takes ConePairArray and connects all points beetween cone pairs
     visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
-        pgr::cones::ConePairArray &cone_pair_array,
+        pgr::ConePairArray &cone_pair_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -137,7 +137,7 @@ namespace pgr::visualization
 
     visualization_msgs::msg::Marker create_line_list_from_cone_graph(
         const ConeGraph &cone_graph,
-        const pgr::cones::ConeArray &cone_array,
+        const pgr::ConeArray &cone_array,
         const std::string &frame_id,
         const pgr::visualization::Color &color,
         const std::string &name_space,
@@ -147,7 +147,7 @@ namespace pgr::visualization
     void publish_cone_graph_as_lines(
         const rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr &marker_array_publisher,
         const ConeGraph &cone_graph,
-        const pgr::cones::ConeArray &cone_array,
+        const pgr::ConeArray &cone_array,
         const pgr::visualization::Color &color,
         const std::string &name_space,
         const std::string &frame_id,
