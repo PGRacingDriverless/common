@@ -9,8 +9,8 @@ namespace pgr::visualization
         marker.color.b = color.b;
         marker.color.a = color.a;
     }
-
-    [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
+    
+    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::Cone &cone, const int marker_count)
     {
         visualization_msgs::msg::Marker marker;
@@ -55,8 +55,8 @@ namespace pgr::visualization
 
         return marker;
     }
-
-    [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
+    
+    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::Cone &cone1, const pgr::Cone &cone2, const size_t marker_id)
     {
         visualization_msgs::msg::Marker marker_line;
@@ -99,8 +99,8 @@ namespace pgr::visualization
 
         return marker_line;
     }
-
-    [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
+    
+    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const pgr::visualization::Color &color)
     {
         // Config marker to display vector in RViz2
@@ -134,8 +134,8 @@ namespace pgr::visualization
 
         return direction_vector;
     }
-
-    [[deprecated("This is not recommended, please use ***_LIST for marker publishing")]]
+    
+    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
         const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const pgr::visualization::Color &color)
     {
@@ -164,61 +164,6 @@ namespace pgr::visualization
         }
 
         return marker_polygon_area;
-    }
-
-    [[deprecated("We are using diffrent way of publishing")]]
-    void publish_circle(
-        rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_array_publisher,
-        const float x,
-        const float y,
-        const float diameter,
-        const pgr::visualization::Color &color,
-        const std::string &name_space,
-        const std::string &frame_id,
-        const float marker_lifetime_s)
-    {
-
-        size_t marker_id = 0;
-
-        // Config marker array to display a circle in RViz2
-        visualization_msgs::msg::MarkerArray marker_array;
-        visualization_msgs::msg::Marker circle_marker;
-        circle_marker.header.frame_id = frame_id;
-        circle_marker.header.stamp = rclcpp::Clock().now();
-        circle_marker.ns = name_space;
-        circle_marker.id = marker_id;
-        circle_marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
-        circle_marker.action = visualization_msgs::msg::Marker::ADD;
-        circle_marker.scale.x = 0.075; // Line width
-        circle_marker.color.r = color.r;
-        circle_marker.color.g = color.g;
-        circle_marker.color.b = color.b;
-        circle_marker.color.a = color.a;
-        int32_t seconds = static_cast<int32_t>(marker_lifetime_s);
-        uint32_t nanoseconds = static_cast<uint32_t>((marker_lifetime_s - seconds) * 1e9);
-        circle_marker.lifetime = rclcpp::Duration(seconds, nanoseconds);
-
-        // Calculate points around the circumference of the circle
-        const int num_points = 36; // Number of points to represent the circle
-        float radius = diameter / 2.0;
-        for (int i = 0; i <= num_points; ++i)
-        {
-            float angle = 2 * M_PI * i / num_points;
-            geometry_msgs::msg::Point point;
-            point.x = x + radius * cos(angle);
-            point.y = y + radius * sin(angle);
-            point.z = 0;
-            circle_marker.points.push_back(point);
-        }
-
-        // Add the circle marker to the marker array
-        marker_array.markers.push_back(circle_marker);
-
-        // Publish the marker array
-        marker_array_publisher->publish(marker_array);
-
-        // Increment the marker ID for the next circle
-        marker_id++;
     }
 
     visualization_msgs::msg::Marker create_circle(
@@ -268,7 +213,7 @@ namespace pgr::visualization
 
         return circle_marker;
     }
-
+    
     // sets parameters for given marker
     void set_marker_parameters(
         visualization_msgs::msg::Marker &marker,
@@ -338,28 +283,6 @@ namespace pgr::visualization
         label.pose.position.z = 1;
 
         return label;
-    }
-
-    // Takes a ConeArray and creates text label over cones with correspoding index/id
-    visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        const pgr::ConeArray &cone_array,
-        const std::string &frame_id,
-        const std::string &text,
-        const std::string &name_space,
-        const float marker_lifetime_s)
-    {
-
-        visualization_msgs::msg::MarkerArray text_labels_array;
-        std::size_t marker_id = 0;
-
-        for (pgr::Cone cone : cone_array)
-        {
-            visualization_msgs::msg::Marker label = create_text_label_marker_from_cone(cone, text, name_space, frame_id, marker_lifetime_s, marker_id, 1, 1, 1);
-            text_labels_array.markers.push_back(label);
-            marker_id++;
-        }
-
-        return text_labels_array;
     }
 
     // Takes a ConeArray and creates cubes in given coordinates of cones
@@ -485,7 +408,7 @@ namespace pgr::visualization
         marker_id++;
         return cone_marker_list;
     }
-
+    
     visualization_msgs::msg::Marker create_line_list_from_cone_graph(
         const ConeGraph &cone_graph,
         const pgr::ConeArray &cone_array,
@@ -537,63 +460,5 @@ namespace pgr::visualization
 
         marker_id++;
         return line_list;
-    }
-
-    [[deprecated("We are using diffrent way of publishing")]]
-    void publish_cone_graph_as_lines(
-        const rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr &marker_array_publisher,
-        const ConeGraph &cone_graph,
-        const pgr::ConeArray &cone_array,
-        const pgr::visualization::Color &color,
-        const std::string &name_space,
-        const std::string &frame_id,
-        const float marker_lifetime_s)
-    {
-
-        size_t marker_id = 0;
-
-        // Config marker array to display cone graph in RViz2
-        visualization_msgs::msg::MarkerArray marker_array;
-        visualization_msgs::msg::Marker line_list;
-
-        set_marker_parameters(
-            line_list,
-            color,
-            name_space,
-            frame_id,
-            marker_lifetime_s,
-            marker_id,
-            visualization_msgs::msg::Marker::LINE_LIST,
-            visualization_msgs::msg::Marker::ADD,
-            0.075, 0.075, 0.075); // not sure if those scale parameters are set correctly since originaly only scale.x was set
-
-        // Iterate over the edges of the graph
-        boost::graph_traits<ConeGraph>::edge_iterator ei, ei_end;
-        for (boost::tie(ei, ei_end) = boost::edges(cone_graph); ei != ei_end; ++ei)
-        {
-            // Get the source and target vertices of the edge
-            auto source_vertex = boost::source(*ei, cone_graph);
-            auto target_vertex = boost::target(*ei, cone_graph);
-
-            // Get the corresponding cones
-            const pgr::Cone &cone1 = cone_array[source_vertex];
-            const pgr::Cone &cone2 = cone_array[target_vertex];
-
-            // Add points to the marker
-            geometry_msgs::msg::Point line_point;
-            line_point.x = cone1.get_x();
-            line_point.y = cone1.get_y();
-            line_point.z = 0;
-            line_list.points.push_back(line_point);
-
-            line_point.x = cone2.get_x();
-            line_point.y = cone2.get_y();
-            line_point.z = 0;
-            line_list.points.push_back(line_point);
-
-            marker_array.markers.push_back(line_list);
-        }
-        marker_id++;
-        marker_array_publisher->publish(marker_array);
     }
 };
