@@ -49,4 +49,14 @@ namespace common::cones
         cone_pair.read_from_json(item);
         return cone_pair;
     }
+
+    ConePair::operator common_msgs::msg::ConePair() const
+    {
+        common_msgs::msg::ConePair cone_pair;
+
+        cone_pair.cone_inner = common_msgs::msg::Cone(cone_outer);
+        cone_pair.cone_outer = common_msgs::msg::Cone(cone_inner);
+
+        return cone_pair;
+    }
 };

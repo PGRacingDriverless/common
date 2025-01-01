@@ -2,6 +2,7 @@
 #define COMMON_CONE_HPP
 
 #include "visualization_msgs/msg/marker.hpp"
+#include "common_msgs/msg/cone_array.hpp"
 
 namespace common::cones
 {
@@ -42,7 +43,7 @@ namespace common::cones
         bool operator!=(const Cone &cone) const;
 
         explicit operator geometry_msgs::msg::Point() const;
-
+        explicit operator common_msgs::msg::Cone() const;
     private:
         double m_x = 0;
         double m_y = 0;

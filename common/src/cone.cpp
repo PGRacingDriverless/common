@@ -68,4 +68,15 @@ namespace common::cones
         point.z = 0;
         return point;
     }
+
+    Cone::operator common_msgs::msg::Cone() const
+    {
+        common_msgs::msg::Cone cone;
+
+        cone.x = m_x;
+        cone.y = m_y;
+        cone.side = m_side;
+
+        return cone;
+    }
 };

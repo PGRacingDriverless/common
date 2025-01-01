@@ -6,6 +6,8 @@
 #include <boost/property_tree/json_parser.hpp>
 using boost::property_tree::ptree;
 
+#include "common_msgs/msg/cone_pair_array.hpp"
+
 namespace common::cones
 {
     class ConePair
@@ -25,6 +27,8 @@ namespace common::cones
 
         void read_from_json(const ptree::value_type &item);
         static ConePair get_from_json(const ptree::value_type &item);
+
+        explicit operator common_msgs::msg::ConePair() const;
 
     private:
         Cone cone_outer;
