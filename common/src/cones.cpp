@@ -2,6 +2,8 @@
 
 namespace common::cones
 {
+    Cone::Cone(double x, double y) : m_x(x), m_y(y) {}
+
     Cone::Cone(double x, double y, TrackSide side, Color color) : m_x(x), m_y(y), m_side(side), m_color(color) {}
 
     double Cone::get_x() const
@@ -19,6 +21,12 @@ namespace common::cones
     }
     void Cone::set_y(double y)
     {
+        m_y = y;
+    }
+
+    void Cone::setPos(double x, double y)
+    {
+        m_x = x;
         m_y = y;
     }
 

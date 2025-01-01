@@ -143,9 +143,13 @@ namespace common::viz
         set_marker_color(marker_polygon_area, color);
         marker_polygon_area.color.a = 0.5;
 
+        geometry_msgs::msg::Point polygon_point;
         for (const auto &item : final_match_area.outer())
         {
-            marker_polygon_area.points.push_back(geometry_msgs::msg::Point(item));
+            polygon_point.x = item.x();
+            polygon_point.y = item.y();
+            polygon_point.z = 0.0;
+            marker_polygon_area.points.push_back(polygon_point);
         }
 
         return marker_polygon_area;

@@ -26,6 +26,7 @@ namespace common::cones
         };
 
         Cone() = default;
+        Cone(double x, double y);
         Cone(double x, double y, TrackSide side, Color color);
 
         double get_x() const;
@@ -33,6 +34,8 @@ namespace common::cones
 
         double get_y() const;
         void set_y(double y);
+
+        void setPos(double x, double y);
 
         TrackSide get_side() const;
         void set_side(TrackSide side);
