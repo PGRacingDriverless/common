@@ -1,6 +1,6 @@
 #include "common/cones.hpp"
 
-namespace pgr
+namespace common::cones
 {
     Cone::Cone(double x, double y, TrackSide side, Color color) : m_x(x), m_y(y), m_side(side), m_color(color) {}
 
@@ -125,22 +125,22 @@ namespace pgr
         copy.run();
     }
 
-    inline void separate_cone_sides(const pgr::ConeArray &input_cone_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array)
+    inline void separate_cone_sides(const common::cones::ConeArray &input_cone_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array)
     {
         for (auto &item : input_cone_array)
         {
-            if (item.get_side() == pgr::Cone::TrackSide::OUTER)
+            if (item.get_side() == common::cones::Cone::TrackSide::OUTER)
             {
                 outer_cone_array.push_back(item);
             }
-            else if (item.get_side() == pgr::Cone::TrackSide::INNER)
+            else if (item.get_side() == common::cones::Cone::TrackSide::INNER)
             {
                 inner_cone_array.push_back(item);
             }
         }
     }
 
-    inline void separate_cone_sides_from_cone_pairs(const pgr::ConePairArray &cone_pair_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array)
+    inline void separate_cone_sides_from_cone_pairs(const common::cones::ConePairArray &cone_pair_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array)
     {
         for (auto &item : cone_pair_array)
         {

@@ -6,7 +6,7 @@
 #include <lemon/list_graph.h>
 #include <lemon/path.h>
 
-namespace pgr
+namespace common::cones
 {
     class Cone
     {
@@ -86,9 +86,9 @@ namespace pgr
     using ConeArray = std::vector<Cone>;
     using ConePairArray = std::vector<ConePair>;
 
-    inline void separate_cone_sides(const ConeArray &input_cone_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array);
+    inline void separate_cone_sides(const ConeArray &input_cone_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array);
 
-    inline void separate_cone_sides_from_cone_pairs(const pgr::ConePairArray &cone_pair_array, pgr::ConeArray &inner_cone_array, pgr::ConeArray &outer_cone_array);
+    inline void separate_cone_sides_from_cone_pairs(const common::cones::ConePairArray &cone_pair_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array);
 };
 
 #endif

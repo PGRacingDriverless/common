@@ -10,18 +10,17 @@ namespace common::viz
         marker.color.a = color.a;
     }
 
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::Cone &cone, const int marker_count)
+    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const common::cones::Cone &cone, const int marker_count)
     {
         visualization_msgs::msg::Marker marker;
         marker.header.frame_id = "/map";
         marker.header.stamp = rclcpp::Time();
         marker.ns = name_space;
-        if (cone.get_side() == pgr::Cone::TrackSide::INNER)
+        if (cone.get_side() == common::cones::Cone::TrackSide::INNER)
         {
             marker.id = marker_count;
         }
-        else if (cone.get_side() == pgr::Cone::TrackSide::OUTER)
+        else if (cone.get_side() == common::cones::Cone::TrackSide::OUTER)
         {
             marker.id = 1000 - marker_count;
         }
@@ -36,15 +35,15 @@ namespace common::viz
         marker.scale.y = 1;
         marker.scale.z = 1;
 
-        if (cone.get_color() == pgr::Cone::Color::YELLOW)
+        if (cone.get_color() == common::cones::Cone::Color::YELLOW)
         {
             set_marker_color(marker, common::viz::YELLOW);
         }
-        else if (cone.get_color() == pgr::Cone::Color::BLUE)
+        else if (cone.get_color() == common::cones::Cone::Color::BLUE)
         {
             set_marker_color(marker, common::viz::BLUE);
         }
-        else if (cone.get_color() == pgr::Cone::Color::ORANGE)
+        else if (cone.get_color() == common::cones::Cone::Color::ORANGE)
         {
             set_marker_color(marker, common::viz::ORANGE);
         }
@@ -56,8 +55,7 @@ namespace common::viz
         return marker;
     }
 
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::Cone &cone1, const pgr::Cone &cone2, const size_t marker_id)
+    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id)
     {
         visualization_msgs::msg::Marker marker_line;
         marker_line.header.frame_id = "/map";
@@ -68,11 +66,11 @@ namespace common::viz
         marker_line.action = visualization_msgs::msg::Marker::ADD;
         marker_line.lifetime = rclcpp::Duration(2, 0);
 
-        if (cone1.get_side() == pgr::Cone::TrackSide::INNER && cone2.get_side() == pgr::Cone::TrackSide::INNER)
+        if (cone1.get_side() == common::cones::Cone::TrackSide::INNER && cone2.get_side() == common::cones::Cone::TrackSide::INNER)
         {
             set_marker_color(marker_line, common::viz::YELLOW);
         }
-        else if (cone1.get_side() == pgr::Cone::TrackSide::OUTER && cone2.get_side() == pgr::Cone::TrackSide::OUTER)
+        else if (cone1.get_side() == common::cones::Cone::TrackSide::OUTER && cone2.get_side() == common::cones::Cone::TrackSide::OUTER)
         {
             set_marker_color(marker_line, common::viz::BLUE);
         }
@@ -100,7 +98,6 @@ namespace common::viz
         return marker_line;
     }
 
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const common::viz::Color &color)
     {
         // Config marker to display vector in RViz2
@@ -135,7 +132,6 @@ namespace common::viz
         return direction_vector;
     }
 
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
         const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const common::viz::Color &color)
     {
@@ -250,7 +246,7 @@ namespace common::viz
     // Takes a Cone object to create a label over the given cone
     // used in create_id_labels_for_cone_array()
     visualization_msgs::msg::Marker create_text_label_marker_from_cone(
-        const pgr::Cone &cone,
+        const common::cones::Cone &cone,
         const std::string &text,
         const std::string &name_space,
         const std::string &frame_id,
@@ -287,7 +283,7 @@ namespace common::viz
 
     // Takes a ConeArray and creates cubes in given coordinates of cones
     visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        const pgr::ConeArray &cone_array,
+        const common::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
@@ -308,7 +304,7 @@ namespace common::viz
             visualization_msgs::msg::Marker::ADD,
             1, 1, 1);
 
-        for (pgr::Cone cone : cone_array)
+        for (common::cones::Cone cone : cone_array)
         {
             geometry_msgs::msg::Point cone_point;
 
@@ -325,7 +321,7 @@ namespace common::viz
 
     // Takes ConeArray and connects given cone positions with lines
     visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        const pgr::ConeArray &cone_array,
+        const common::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
@@ -368,7 +364,7 @@ namespace common::viz
 
     // Takes ConePairArray and connects all points beetween cone pairs
     visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
-        pgr::ConePairArray &cone_pair_array,
+        common::cones::ConePairArray &cone_pair_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
@@ -410,7 +406,7 @@ namespace common::viz
     }
 
     visualization_msgs::msg::Marker create_line_list_from_cone_graph(
-        const pgr::ConeGraph &cone_graph,
+        const common::cones::ConeGraph &cone_graph,
         const std::string frame_id,
         const common::viz::Color color,
         const std::string name_space,
@@ -437,8 +433,8 @@ namespace common::viz
             auto source_vertex = cone_graph.graph.u(e);
             auto target_vertex = cone_graph.graph.v(e);
 
-            const pgr::Cone &cone1 = cone_graph.cones[source_vertex];
-            const pgr::Cone &cone2 = cone_graph.cones[target_vertex];
+            const common::cones::Cone &cone1 = cone_graph.cones[source_vertex];
+            const common::cones::Cone &cone2 = cone_graph.cones[target_vertex];
 
             geometry_msgs::msg::Point line_point;
             line_point.x = cone1.get_x();

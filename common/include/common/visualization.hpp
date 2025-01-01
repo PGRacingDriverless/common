@@ -34,22 +34,14 @@ namespace common::viz
     constexpr Color RED = {1.0, 0.0, 0.0, 1.0};
     constexpr Color GRAY = {0.5, 0.5, 0.5, 1.0};
 
-    //using ConeGraph = boost::adjacency_list<
-        //boost::listS, boost::vecS, boost::undirectedS, boost::no_property,
-        //boost::property<boost::edge_weight_t, double>>;
-
     void set_marker_color(visualization_msgs::msg::Marker &marker, const common::viz::Color &color);
 
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const pgr::Cone &cone, const int marker_count);
+    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const common::cones::Cone &cone, const int marker_count);
     
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
-    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const pgr::Cone &cone1, const pgr::Cone &cone2, const size_t marker_id);
+    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id);
     
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const common::viz::Color &color);
     
-    [[deprecated("IN USE! - This is not recommended, please use ***_LIST for marker publishing")]]
     visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
         const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const common::viz::Color &color);
 
@@ -78,7 +70,7 @@ namespace common::viz
 
     // Takes a ConeArray and creates text label over cones with correspoding index/id
     visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        const pgr::ConeArray &cone_array,
+        const common::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const std::string &text,
         const std::string &name_space,
@@ -86,7 +78,7 @@ namespace common::viz
     
     // Takes a ConeArray and creates cubes in given coordinates of cones
     visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        const pgr::ConeArray &cone_array,
+        const common::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
@@ -94,7 +86,7 @@ namespace common::viz
     
     // Takes ConeArray and connects given cone positions with lines
     visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        const pgr::ConeArray &cone_array,
+        const common::cones::ConeArray &cone_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
@@ -102,14 +94,14 @@ namespace common::viz
     
     // Takes ConePairArray and connects all points beetween cone pairs
     visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
-        pgr::ConePairArray &cone_pair_array,
+        common::cones::ConePairArray &cone_pair_array,
         const std::string &frame_id,
         const common::viz::Color &color,
         const std::string &name_space,
         const float marker_lifetime_s);
 
     visualization_msgs::msg::Marker create_line_list_from_cone_graph(
-        const pgr::ConeGraph &cone_graph,
+        const common::cones::ConeGraph &cone_graph,
         const std::string frame_id,
         const common::viz::Color color,
         const std::string name_space,
