@@ -52,6 +52,15 @@ namespace common::cones
         return !(*this == cone);
     }
 
+    Cone::operator geometry_msgs::msg::Point() const
+    {
+        geometry_msgs::msg::Point point;
+        point.x = m_x;
+        point.y = m_y;
+        point.z = 0;
+        return point;
+    }
+
     ConePair::ConePair(const Cone &cone_outer, const Cone &cone_inner) : cone_outer(cone_outer), cone_inner(cone_inner) {}
 
     Cone ConePair::getOuter() const

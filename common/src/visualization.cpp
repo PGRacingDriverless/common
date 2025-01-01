@@ -16,14 +16,19 @@ namespace common::viz
         marker.header.frame_id = "/map";
         marker.header.stamp = rclcpp::Time();
         marker.ns = name_space;
-        if (cone.get_side() == common::cones::Cone::TrackSide::INNER)
+
+        switch (cone.get_side())
         {
+        case common::cones::Cone::TrackSide::INNER:
             marker.id = marker_count;
-        }
-        else if (cone.get_side() == common::cones::Cone::TrackSide::OUTER)
-        {
+            break;
+        case common::cones::Cone::TrackSide::OUTER:
             marker.id = 1000 - marker_count;
+            break;
+        default:
+            break;
         }
+
         marker.type = visualization_msgs::msg::Marker::CUBE;
         marker.action = visualization_msgs::msg::Marker::ADD;
         marker.pose.position.x = cone.get_x();
@@ -35,21 +40,20 @@ namespace common::viz
         marker.scale.y = 1;
         marker.scale.z = 1;
 
-        if (cone.get_color() == common::cones::Cone::Color::YELLOW)
+        switch (cone.get_color())
         {
+        case common::cones::Cone::Color::YELLOW:
             set_marker_color(marker, common::viz::YELLOW);
-        }
-        else if (cone.get_color() == common::cones::Cone::Color::BLUE)
-        {
+            break;
+        case common::cones::Cone::Color::BLUE:
             set_marker_color(marker, common::viz::BLUE);
-        }
-        else if (cone.get_color() == common::cones::Cone::Color::ORANGE)
-        {
+            break;
+        case common::cones::Cone::Color::ORANGE:
             set_marker_color(marker, common::viz::ORANGE);
-        }
-        else
-        {
+            break;
+        default:
             // RCLCPP_ERROR(package_class->get_logger(), "No color set for cone, we have a problem here");
+            break;
         }
 
         return marker;
@@ -81,19 +85,8 @@ namespace common::viz
 
         marker_line.scale.x = 0.1;
 
-        geometry_msgs::msg::Point line_point;
-
-        line_point.x = cone1.get_x();
-        line_point.y = cone1.get_y();
-        line_point.z = 0;
-
-        marker_line.points.push_back(line_point);
-
-        line_point.x = cone2.get_x();
-        line_point.y = cone2.get_y();
-        line_point.z = 0;
-
-        marker_line.points.push_back(line_point);
+        marker_line.points.push_back(geometry_msgs::msg::Point(cone1));
+        marker_line.points.push_back(geometry_msgs::msg::Point(cone2));
 
         return marker_line;
     }
@@ -150,13 +143,9 @@ namespace common::viz
         set_marker_color(marker_polygon_area, color);
         marker_polygon_area.color.a = 0.5;
 
-        geometry_msgs::msg::Point polygon_point;
         for (const auto &item : final_match_area.outer())
         {
-            polygon_point.x = item.x();
-            polygon_point.y = item.y();
-            polygon_point.z = 0.0;
-            marker_polygon_area.points.push_back(polygon_point);
+            marker_polygon_area.points.push_back(geometry_msgs::msg::Point(item));
         }
 
         return marker_polygon_area;
@@ -306,13 +295,7 @@ namespace common::viz
 
         for (common::cones::Cone cone : cone_array)
         {
-            geometry_msgs::msg::Point cone_point;
-
-            cone_point.x = cone.get_x();
-            cone_point.y = cone.get_y();
-            cone_point.z = 0;
-
-            cone_marker_list.points.push_back(cone_point);
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point(cone));
         }
 
         marker_id++;
@@ -343,19 +326,8 @@ namespace common::viz
 
         for (std::size_t i = 1; i < cone_array.size(); i++)
         {
-            geometry_msgs::msg::Point cone_point1;
-            geometry_msgs::msg::Point cone_point2;
-
-            cone_point1.x = cone_array[i - 1].get_x();
-            cone_point1.y = cone_array[i - 1].get_y();
-            cone_point1.z = 0;
-
-            cone_point2.x = cone_array[i].get_x();
-            cone_point2.y = cone_array[i].get_y();
-            cone_point2.z = 0;
-
-            cone_marker_list.points.push_back(cone_point1);
-            cone_marker_list.points.push_back(cone_point2);
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point(cone_array[i - 1]));
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point(cone_array[i]));
         }
 
         marker_id++;
@@ -386,19 +358,8 @@ namespace common::viz
 
         for (std::size_t i = 0; i < cone_pair_array.size(); i++)
         {
-            geometry_msgs::msg::Point cone_point1;
-            geometry_msgs::msg::Point cone_point2;
-
-            cone_point1.x = cone_pair_array[i].getInner().get_x();
-            cone_point1.y = cone_pair_array[i].getInner().get_y();
-            cone_point1.z = 0;
-
-            cone_point2.x = cone_pair_array[i].getOuter().get_x();
-            cone_point2.y = cone_pair_array[i].getOuter().get_y();
-            cone_point2.z = 0;
-
-            cone_marker_list.points.push_back(cone_point1);
-            cone_marker_list.points.push_back(cone_point2);
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point(cone_pair_array[i].getInner()));
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point(cone_pair_array[i].getOuter()));
         }
 
         marker_id++;
@@ -436,16 +397,8 @@ namespace common::viz
             const common::cones::Cone &cone1 = cone_graph.cones[source_vertex];
             const common::cones::Cone &cone2 = cone_graph.cones[target_vertex];
 
-            geometry_msgs::msg::Point line_point;
-            line_point.x = cone1.get_x();
-            line_point.y = cone1.get_y();
-            line_point.z = 0;
-            line_list.points.push_back(line_point);
-
-            line_point.x = cone2.get_x();
-            line_point.y = cone2.get_y();
-            line_point.z = 0;
-            line_list.points.push_back(line_point);
+            line_list.points.push_back(geometry_msgs::msg::Point(cone1));
+            line_list.points.push_back(geometry_msgs::msg::Point(cone2));
         }
 
         marker_id++;

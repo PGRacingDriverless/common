@@ -6,6 +6,8 @@
 #include <lemon/list_graph.h>
 #include <lemon/path.h>
 
+#include "visualization_msgs/msg/marker.hpp"
+
 namespace common::cones
 {
     class Cone
@@ -40,6 +42,8 @@ namespace common::cones
 
         bool operator==(const Cone &cone) const;
         bool operator!=(const Cone &cone) const;
+
+        explicit operator geometry_msgs::msg::Point() const;
 
     private:
         double m_x = 0;
