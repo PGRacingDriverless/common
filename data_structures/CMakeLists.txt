@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(common)
+project(data_structures)
 
 if(NOT CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 14)
@@ -11,18 +11,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-Wall -Wextra -Wpedantic )
 endif()
 
-find_package(PCL REQUIRED)
-find_package(common_msgs REQUIRED)
-find_package(cones REQUIRED)
-
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 include_directories(include ${PCL_INCLUDE_DIRS})
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-    src/math.cpp
-    src/visualization.cpp
+    src/vector.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})

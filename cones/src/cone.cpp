@@ -1,4 +1,4 @@
-#include "common/cone.hpp"
+#include "cones/cone.hpp"
 
 namespace common::cones
 {

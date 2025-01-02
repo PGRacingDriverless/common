@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(common)
+project(cones)
 
 if(NOT CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 14)
@@ -13,7 +13,7 @@ endif()
 
 find_package(PCL REQUIRED)
 find_package(common_msgs REQUIRED)
-find_package(cones REQUIRED)
+find_package(data_structures REQUIRED)
 
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
@@ -21,8 +21,10 @@ ament_auto_find_build_dependencies()
 include_directories(include ${PCL_INCLUDE_DIRS})
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-    src/math.cpp
-    src/visualization.cpp
+    src/cone.cpp
+    src/conepair.cpp
+    src/cones.cpp
+    src/conegraph.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})

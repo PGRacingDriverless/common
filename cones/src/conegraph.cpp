@@ -1,4 +1,4 @@
-#include "common/cones.hpp"
+#include "cones/conegraph.hpp"
 
 namespace common::cones
 {
@@ -44,29 +44,5 @@ namespace common::cones
         copy.nodeMap(rhs.cones, cones);
         copy.edgeMap(rhs.edge_weight, edge_weight);
         copy.run();
-    }
-
-    inline void separate_cone_sides(const common::cones::ConeArray &input_cone_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array)
-    {
-        for (auto &item : input_cone_array)
-        {
-            if (item.get_side() == common::cones::Cone::TrackSide::OUTER)
-            {
-                outer_cone_array.push_back(item);
-            }
-            else if (item.get_side() == common::cones::Cone::TrackSide::INNER)
-            {
-                inner_cone_array.push_back(item);
-            }
-        }
-    }
-
-    inline void separate_cone_sides_from_cone_pairs(const common::cones::ConePairArray &cone_pair_array, common::cones::ConeArray &inner_cone_array, common::cones::ConeArray &outer_cone_array)
-    {
-        for (auto &item : cone_pair_array)
-        {
-            inner_cone_array.push_back(item.getInner());
-            outer_cone_array.push_back(item.getOuter());
-        }
     }
 };

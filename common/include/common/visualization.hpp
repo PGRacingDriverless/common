@@ -2,7 +2,8 @@
 #define COMMON_VISUALIZATION_HPP
 
 #include "common/math.hpp"
-#include "common/cones.hpp"
+
+#include "cones/cones.hpp"
 
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
