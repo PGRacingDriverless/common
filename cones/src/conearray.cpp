@@ -38,7 +38,7 @@ namespace common::cones
     // Takes a ConeArray and creates cubes in given coordinates of cones
     visualization_msgs::msg::Marker ConeArray::create_cube_list(
         const std::string &frame_id,
-        const common::viz::Color &color,
+        const common::viz::color_t &color,
         const std::string &name_space,
         const float marker_lifetime_s) const
     {
@@ -69,7 +69,7 @@ namespace common::cones
     // Takes ConeArray and connects given cone positions with lines
     visualization_msgs::msg::Marker ConeArray::create_line_list(
         const std::string &frame_id,
-        const common::viz::Color &color,
+        const common::viz::color_t &color,
         const std::string &name_space,
         const float marker_lifetime_s) const
     {

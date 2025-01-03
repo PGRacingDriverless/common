@@ -24,7 +24,7 @@ namespace common::cones
 
         visualization_msgs::msg::Marker create_line_list_connecting(
             const std::string &frame_id,
-            const common::viz::Color &color,
+            const common::viz::color_t &color,
             const std::string &name_space,
             const float marker_lifetime_s) const;
     };

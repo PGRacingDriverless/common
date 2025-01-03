@@ -12,47 +12,53 @@
 
 #include <boost/geometry/geometries/geometries.hpp>
 
-#include <boost/graph/adjacency_list.hpp>
+#include "std_msgs/msg/color_rgba.hpp"
 
 namespace common::viz
 {
-    struct Color
-    {
-        float r;
-        float g;
-        float b;
-        float a;
-    };
-    constexpr Color BLUE = {0.0, 0.0, 1.0, 1.0};
-    constexpr Color LIGHT_BLUE = {0.7, 0.7, 1.0, 1.0};
-    constexpr Color BLUEISH = {0.3, 0.3, 0.8, 1.0};
-    constexpr Color YELLOW = {1.0, 1.0, 0.0, 1.0};
-    constexpr Color LIGHT_YELLOW = {1.0, 1.0, 0.7, 1.0};
-    constexpr Color YELLOWISH = {0.8, 0.8, 0.3, 1.0};
-    constexpr Color ORANGE = {1.0, 0.5, 0.0, 1.0};
-    constexpr Color RED = {1.0, 0.0, 0.0, 1.0};
-    constexpr Color GRAY = {0.5, 0.5, 0.5, 1.0};
+    using color_t = std_msgs::msg::ColorRGBA;
 
-    void set_marker_color(visualization_msgs::msg::Marker &marker, const common::viz::Color &color);
-    
-    visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const common::viz::Color &color);
-    
+    color_t create_color(float r, float g, float b, float a);
+
+    const color_t BLUE = create_color(0.0, 0.0, 1.0, 1.0);
+    const color_t LIGHT_BLUE = create_color(0.7, 0.7, 1.0, 1.0);
+    const color_t BLUEISH = create_color(0.3, 0.3, 0.8, 1.0);
+    const color_t YELLOW = create_color(1.0, 1.0, 0.0, 1.0);
+    const color_t LIGHT_YELLOW = create_color(1.0, 1.0, 0.7, 1.0);
+    const color_t YELLOWISH = create_color(0.8, 0.8, 0.3, 1.0);
+    const color_t ORANGE = create_color(1.0, 0.5, 0.0, 1.0);
+    const color_t RED = create_color(1.0, 0.0, 0.0, 1.0);
+    const color_t GRAY = create_color(0.5, 0.5, 0.5, 1.0);
+
+    void set_marker_color(visualization_msgs::msg::Marker &marker, const color_t &color);
+
+    visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space,
+                                                                             const double start_x,
+                                                                             const double start_y,
+                                                                             const double end_x,
+                                                                             const double end_y,
+                                                                             const size_t marker_id,
+                                                                             const color_t &color);
+
     visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
-        const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const common::viz::Color &color);
+        const std::string &name_space,
+        const boost::geometry::model::polygon<point> &final_match_area,
+        const size_t marker_id,
+        const color_t &color);
 
     visualization_msgs::msg::Marker create_circle(
         const float x,
         const float y,
         const float diameter,
         const std::string &frame_id,
-        const common::viz::Color &color,
+        const color_t &color,
         const std::string &name_space,
         const float marker_lifetime_s);
 
     // sets parameters for given marker
     void set_marker_parameters(
         visualization_msgs::msg::Marker &marker,
-        const common::viz::Color &color,
+        const color_t &color,
         const std::string &name_space,
         const std::string &frame_id,
         const float marker_lifetime_s,

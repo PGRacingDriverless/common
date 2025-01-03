@@ -2,15 +2,23 @@
 
 namespace common::viz
 {
-    void set_marker_color(visualization_msgs::msg::Marker &marker, const common::viz::Color &color)
+    color_t create_color(float r, float g, float b, float a)
     {
-        marker.color.r = color.r;
-        marker.color.g = color.g;
-        marker.color.b = color.b;
-        marker.color.a = color.a;
+        color_t color;
+        color.r = r;
+        color.g = g;
+        color.b = b;
+        color.a = a;
+        return color;
     }
 
-    visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const common::viz::Color &color)
+    visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space,
+                                                                             const double start_x,
+                                                                             const double start_y,
+                                                                             const double end_x,
+                                                                             const double end_y,
+                                                                             const size_t marker_id,
+                                                                             const color_t &color)
     {
         // Config marker to display vector in RViz2
         visualization_msgs::msg::Marker direction_vector;
@@ -45,7 +53,10 @@ namespace common::viz
     }
 
     visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
-        const std::string &name_space, const boost::geometry::model::polygon<point> &final_match_area, const size_t marker_id, const common::viz::Color &color)
+        const std::string &name_space,
+        const boost::geometry::model::polygon<point> &final_match_area,
+        const size_t marker_id,
+        const color_t &color)
     {
 
         // Config marker to display final contour in RViz2
@@ -79,7 +90,7 @@ namespace common::viz
         const float y,
         const float diameter,
         const std::string &frame_id,
-        const common::viz::Color &color,
+        const color_t &color,
         const std::string &name_space,
         const float marker_lifetime_s)
     {
@@ -125,7 +136,7 @@ namespace common::viz
     // sets parameters for given marker
     void set_marker_parameters(
         visualization_msgs::msg::Marker &marker,
-        const common::viz::Color &color,
+        const color_t &color,
         const std::string &name_space,
         const std::string &frame_id,
         const float marker_lifetime_s,
@@ -148,7 +159,7 @@ namespace common::viz
         marker.scale.y = scale_y;
         marker.scale.z = scale_z;
 
-        set_marker_color(marker, color);
+        marker.color = color;
 
         int32_t seconds = static_cast<int32_t>(marker_lifetime_s);
         uint32_t nanoseconds = static_cast<uint32_t>((marker_lifetime_s - seconds) * 1e9);

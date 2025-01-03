@@ -113,13 +113,13 @@ namespace common::cones
         switch (m_color)
         {
         case common::cones::Cone::Color::YELLOW:
-            set_marker_color(marker, common::viz::YELLOW);
+            marker.color = common::viz::YELLOW;
             break;
         case common::cones::Cone::Color::BLUE:
-            set_marker_color(marker, common::viz::BLUE);
+            marker.color = common::viz::BLUE;
             break;
         case common::cones::Cone::Color::ORANGE:
-            set_marker_color(marker, common::viz::ORANGE);
+            marker.color = common::viz::ORANGE;
             break;
         default:
             // RCLCPP_ERROR(package_class->get_logger(), "No color set for cone, we have a problem here");
@@ -142,15 +142,15 @@ namespace common::cones
 
         if (cone1.get_side() == common::cones::Cone::TrackSide::INNER && cone2.get_side() == common::cones::Cone::TrackSide::INNER)
         {
-            set_marker_color(marker_line, common::viz::YELLOW);
+            marker_line.color = common::viz::YELLOW;
         }
         else if (cone1.get_side() == common::cones::Cone::TrackSide::OUTER && cone2.get_side() == common::cones::Cone::TrackSide::OUTER)
         {
-            set_marker_color(marker_line, common::viz::BLUE);
+            marker_line.color = common::viz::BLUE;
         }
         else
         {
-            set_marker_color(marker_line, common::viz::RED);
+            marker_line.color = common::viz::RED;
         }
 
         marker_line.scale.x = 0.1;
@@ -174,7 +174,7 @@ namespace common::cones
 
         visualization_msgs::msg::Marker label;
 
-        set_marker_parameters(
+        common::viz::set_marker_parameters(
             label,
             common::viz::GRAY,
             name_space,
