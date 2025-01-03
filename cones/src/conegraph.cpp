@@ -13,36 +13,36 @@ namespace common::cones
     }
 
     ConeGraph::ConeGraph()
-        : graph(), edge_weight(graph), cones(graph) {}
+        : graph_(), edge_weight_(graph_), cones_(graph_) {}
 
     ConeGraph::ConeGraph(const ConeGraph &other)
-        : graph(), edge_weight(graph), cones(graph)
+        : graph_(), edge_weight_(graph_), cones_(graph_)
     {
-        lemon::GraphCopy<lemon::ListGraph, lemon::ListGraph> copy(other.graph, graph);
-        copy.nodeMap(other.cones, cones);
-        copy.edgeMap(other.edge_weight, edge_weight);
+        lemon::GraphCopy<lemon::ListGraph, lemon::ListGraph> copy(other.graph_, graph_);
+        copy.nodeMap(other.cones_, cones_);
+        copy.edgeMap(other.edge_weight_, edge_weight_);
         copy.run();
     }
 
     lemon::ListGraph::Node ConeGraph::add_node(Cone cone)
     {
-        lemon::ListGraph::Node node = graph.addNode();
-        cones[node] = cone;
+        lemon::ListGraph::Node node = graph_.addNode();
+        cones_[node] = cone;
         return node;
     }
 
     lemon::ListGraph::Edge ConeGraph::add_edge(lemon::ListGraph::Node u, lemon::ListGraph::Node v, double weight)
     {
-        lemon::ListGraph::Edge edge = graph.addEdge(u, v);
-        edge_weight[edge] = weight;
+        lemon::ListGraph::Edge edge = graph_.addEdge(u, v);
+        edge_weight_[edge] = weight;
         return edge;
     }
 
     void ConeGraph::operator=(const ConeGraph &rhs)
     {
-        lemon::GraphCopy<lemon::ListGraph, lemon::ListGraph> copy(rhs.graph, graph);
-        copy.nodeMap(rhs.cones, cones);
-        copy.edgeMap(rhs.edge_weight, edge_weight);
+        lemon::GraphCopy<lemon::ListGraph, lemon::ListGraph> copy(rhs.graph_, graph_);
+        copy.nodeMap(rhs.cones_, cones_);
+        copy.edgeMap(rhs.edge_weight_, edge_weight_);
         copy.run();
     }
 
@@ -68,13 +68,13 @@ namespace common::cones
             visualization_msgs::msg::Marker::ADD,
             0.075, 0.075, 0.075); // not sure if those scale parameters are set correctly since originaly only scale.x was set
 
-        for (lemon::ListGraph::EdgeIt e(this->graph); e != lemon::INVALID; ++e)
+        for (lemon::ListGraph::EdgeIt e(graph_); e != lemon::INVALID; ++e)
         {
-            auto source_vertex = graph.u(e);
-            auto target_vertex = graph.v(e);
+            auto source_vertex = graph_.u(e);
+            auto target_vertex = graph_.v(e);
 
-            const common::cones::Cone &cone1 = cones[source_vertex];
-            const common::cones::Cone &cone2 = cones[target_vertex];
+            const common::cones::Cone &cone1 = cones_[source_vertex];
+            const common::cones::Cone &cone2 = cones_[target_vertex];
 
             line_list.points.push_back(geometry_msgs::msg::Point(cone1));
             line_list.points.push_back(geometry_msgs::msg::Point(cone2));
@@ -82,5 +82,59 @@ namespace common::cones
 
         marker_id++;
         return line_list;
+    }
+
+    lemon::ListGraph &ConeGraph::graph()
+    {
+        return graph_;
+    }
+    const lemon::ListGraph &ConeGraph::graph() const
+    {
+        return graph_;
+    }
+
+    lemon::ListGraph::EdgeMap<double> &ConeGraph::edge_weight()
+    {
+        return edge_weight_;
+    }
+    const lemon::ListGraph::EdgeMap<double> &ConeGraph::edge_weight() const
+    {
+        return edge_weight_;
+    }
+
+    lemon::ListGraph::NodeMap<Cone> &ConeGraph::cones()
+    {
+        return cones_;
+    }
+    const lemon::ListGraph::NodeMap<Cone> &ConeGraph::cones() const
+    {
+        return cones_;
+    }
+
+    ConeGraph ConeGraph::create_neighborhood_graph(const ConeArray &cone_array, float neighborhood_distance)
+    {
+        ConeGraph g;
+        for (Cone cone : cone_array)
+        {
+            g.add_node(cone);
+        }
+        for (lemon::ListGraph::NodeIt u(g.graph_); u != lemon::INVALID; ++u)
+        {
+            for (lemon::ListGraph::NodeIt v(g.graph_); v != lemon::INVALID; ++v)
+            {
+                if (u != v)
+                {
+                    double distance = common::math::calculate_distance(
+                        g.cones_[u].get_x(), g.cones_[u].get_y(),
+                        g.cones_[v].get_x(), g.cones_[v].get_y());
+                    if (distance < neighborhood_distance)
+                    {
+                        g.add_edge(u, v, distance);
+                    }
+                }
+            }
+        }
+
+        return g;
     }
 };
