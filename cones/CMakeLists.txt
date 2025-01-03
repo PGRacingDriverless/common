@@ -12,6 +12,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(PCL REQUIRED)
+find_package(common REQUIRED)
 find_package(common_msgs REQUIRED)
 find_package(data_structures REQUIRED)
 

@@ -3,8 +3,6 @@
 
 #include "common/math.hpp"
 
-#include "cones/cones.hpp"
-
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
@@ -36,10 +34,6 @@ namespace common::viz
     constexpr Color GRAY = {0.5, 0.5, 0.5, 1.0};
 
     void set_marker_color(visualization_msgs::msg::Marker &marker, const common::viz::Color &color);
-
-    visualization_msgs::msg::Marker create_rviz_cone_visualization_message(const std::string &name_space, const common::cones::Cone &cone, const int marker_count);
-    
-    visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id);
     
     visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space, const double start_x, const double start_y, const double end_x, const double end_y, const size_t marker_id, const common::viz::Color &color);
     
@@ -68,45 +62,6 @@ namespace common::viz
         const float scale_x,
         const float scale_y,
         const float scale_z);
-
-    // Takes a ConeArray and creates text label over cones with correspoding index/id
-    visualization_msgs::msg::MarkerArray create_id_labels_for_cone_array(
-        const common::cones::ConeArray &cone_array,
-        const std::string &frame_id,
-        const std::string &text,
-        const std::string &name_space,
-        const float marker_lifetime_s);
-    
-    // Takes a ConeArray and creates cubes in given coordinates of cones
-    visualization_msgs::msg::Marker create_cube_list_from_cone_array(
-        const common::cones::ConeArray &cone_array,
-        const std::string &frame_id,
-        const common::viz::Color &color,
-        const std::string &name_space,
-        const float marker_lifetime_s);
-    
-    // Takes ConeArray and connects given cone positions with lines
-    visualization_msgs::msg::Marker create_line_list_from_cone_array(
-        const common::cones::ConeArray &cone_array,
-        const std::string &frame_id,
-        const common::viz::Color &color,
-        const std::string &name_space,
-        const float marker_lifetime_s);
-    
-    // Takes ConePairArray and connects all points beetween cone pairs
-    visualization_msgs::msg::Marker create_line_list_connecting_cone_pair_array(
-        common::cones::ConePairArray &cone_pair_array,
-        const std::string &frame_id,
-        const common::viz::Color &color,
-        const std::string &name_space,
-        const float marker_lifetime_s);
-
-    visualization_msgs::msg::Marker create_line_list_from_cone_graph(
-        const common::cones::ConeGraph &cone_graph,
-        const std::string frame_id,
-        const common::viz::Color color,
-        const std::string name_space,
-        const float marker_lifetime_s);
 };
 
 #endif

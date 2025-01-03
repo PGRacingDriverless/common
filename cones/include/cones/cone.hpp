@@ -3,6 +3,9 @@
 
 #include "visualization_msgs/msg/marker.hpp"
 #include "common_msgs/msg/cone_array.hpp"
+#include "common/visualization.hpp"
+
+#include <string>
 
 namespace common::cones
 {
@@ -44,6 +47,19 @@ namespace common::cones
 
         explicit operator geometry_msgs::msg::Point() const;
         explicit operator common_msgs::msg::Cone() const;
+
+        visualization_msgs::msg::Marker create_rviz_visualization_message(const std::string &name_space, const int marker_count) const;
+        static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id);
+        visualization_msgs::msg::Marker create_text_label_marker (
+            const std::string &text,
+            const std::string &name_space,
+            const std::string &frame_id,
+            const float marker_lifetime_s,
+            const size_t marker_id,
+            const float scale_x,
+            const float scale_y,
+            const float scale_z) const;
+
     private:
         double m_x = 0;
         double m_y = 0;

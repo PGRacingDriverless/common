@@ -24,6 +24,12 @@ namespace common::cones
         lemon::ListGraph::EdgeMap<double> edge_weight;
         lemon::ListGraph::NodeMap<Cone> cones;
         void operator=(const ConeGraph &rhs);
+
+        visualization_msgs::msg::Marker create_line_list(
+            const std::string frame_id,
+            const common::viz::Color color,
+            const std::string name_space,
+            const float marker_lifetime_s) const;
     };
 };
 

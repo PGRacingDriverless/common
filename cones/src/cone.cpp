@@ -79,4 +79,120 @@ namespace common::cones
 
         return cone;
     }
+
+    visualization_msgs::msg::Marker Cone::create_rviz_visualization_message(const std::string &name_space, const int marker_count) const
+    {
+        visualization_msgs::msg::Marker marker;
+        marker.header.frame_id = "/map";
+        marker.header.stamp = rclcpp::Time();
+        marker.ns = name_space;
+
+        switch (m_side)
+        {
+        case common::cones::Cone::TrackSide::INNER:
+            marker.id = marker_count;
+            break;
+        case common::cones::Cone::TrackSide::OUTER:
+            marker.id = 1000 - marker_count;
+            break;
+        default:
+            break;
+        }
+
+        marker.type = visualization_msgs::msg::Marker::CUBE;
+        marker.action = visualization_msgs::msg::Marker::ADD;
+        marker.pose.position.x = m_x;
+        marker.pose.position.y = m_y;
+        marker.pose.position.z = 0;
+        marker.pose.orientation.w = 1.0;
+        marker.lifetime = rclcpp::Duration(0, 0);
+        marker.scale.x = 1;
+        marker.scale.y = 1;
+        marker.scale.z = 1;
+
+        switch (m_color)
+        {
+        case common::cones::Cone::Color::YELLOW:
+            set_marker_color(marker, common::viz::YELLOW);
+            break;
+        case common::cones::Cone::Color::BLUE:
+            set_marker_color(marker, common::viz::BLUE);
+            break;
+        case common::cones::Cone::Color::ORANGE:
+            set_marker_color(marker, common::viz::ORANGE);
+            break;
+        default:
+            // RCLCPP_ERROR(package_class->get_logger(), "No color set for cone, we have a problem here");
+            break;
+        }
+
+        return marker;
+    }
+
+    visualization_msgs::msg::Marker Cone::create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id)
+    {
+        visualization_msgs::msg::Marker marker_line;
+        marker_line.header.frame_id = "/map";
+        marker_line.header.stamp = rclcpp::Time();
+        marker_line.ns = name_space;
+        marker_line.id = 1000 + marker_id;
+        marker_line.type = visualization_msgs::msg::Marker::LINE_LIST;
+        marker_line.action = visualization_msgs::msg::Marker::ADD;
+        marker_line.lifetime = rclcpp::Duration(2, 0);
+
+        if (cone1.get_side() == common::cones::Cone::TrackSide::INNER && cone2.get_side() == common::cones::Cone::TrackSide::INNER)
+        {
+            set_marker_color(marker_line, common::viz::YELLOW);
+        }
+        else if (cone1.get_side() == common::cones::Cone::TrackSide::OUTER && cone2.get_side() == common::cones::Cone::TrackSide::OUTER)
+        {
+            set_marker_color(marker_line, common::viz::BLUE);
+        }
+        else
+        {
+            set_marker_color(marker_line, common::viz::RED);
+        }
+
+        marker_line.scale.x = 0.1;
+
+        marker_line.points.push_back(geometry_msgs::msg::Point(cone1));
+        marker_line.points.push_back(geometry_msgs::msg::Point(cone2));
+
+        return marker_line;
+    }
+
+    visualization_msgs::msg::Marker Cone::create_text_label_marker(
+        const std::string &text,
+        const std::string &name_space,
+        const std::string &frame_id,
+        const float marker_lifetime_s,
+        const size_t marker_id,
+        const float scale_x,
+        const float scale_y,
+        const float scale_z) const
+    {
+
+        visualization_msgs::msg::Marker label;
+
+        set_marker_parameters(
+            label,
+            common::viz::GRAY,
+            name_space,
+            frame_id,
+            marker_lifetime_s,
+            marker_id,
+            visualization_msgs::msg::Marker::TEXT_VIEW_FACING,
+            visualization_msgs::msg::Marker::ADD,
+            scale_x,
+            scale_y,
+            scale_z);
+
+        label.text = text + " " + std::to_string(marker_id);
+
+        label.pose.position.x = m_x;
+        label.pose.position.y = m_y;
+        label.pose.position.z = 1;
+
+        return label;
+    }
 };
