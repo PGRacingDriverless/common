@@ -25,6 +25,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
     src/conepair.cpp
     src/cones.cpp
     src/conegraph.cpp
+    src/conepairarray.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})
