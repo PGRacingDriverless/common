@@ -23,6 +23,7 @@ include_directories(include ${PCL_INCLUDE_DIRS})
 ament_auto_add_library(${PROJECT_NAME} SHARED
     src/math.cpp
     src/visualization.cpp
+    src/msg.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})

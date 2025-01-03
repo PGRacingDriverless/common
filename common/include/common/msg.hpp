@@ -1,6 +1,12 @@
-#include <msg/msg.hpp>
+#ifndef COMMON_MSG_HPP
+#define COMMON_MSG_HPP
 
-namespace pgr::msg
+#include <geometry_msgs/msg/point.hpp>
+#include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
+
+namespace common::msg
 {
     /**
      * `inline` function. Creates `geometry_msgs` `Point` with given `x`,
@@ -14,14 +20,7 @@ namespace pgr::msg
     inline geometry_msgs::msg::Point create_point(
         const double x,
         const double y,
-        const double z)
-    {
-        geometry_msgs::msg::Point point;
-        point.x = x;
-        point.y = y;
-        point.z = z;
-        return point;
-    }
+        const double z);
 
     /**
      * `inline` function. Creates `geometry_msgs` `Pose` with given
@@ -33,13 +32,7 @@ namespace pgr::msg
      */
     inline geometry_msgs::msg::Pose create_pose(
         const geometry_msgs::msg::Point point,
-        const geometry_msgs::msg::Quaternion quaternion)
-    {
-        geometry_msgs::msg::Pose pose;
-        pose.position = point;
-        pose.orientation = quaternion;
-        return pose;
-    }
+        const geometry_msgs::msg::Quaternion quaternion);
 
     /**
      * `inline` function. Creates `geometry_msgs` `Quaternion` with
@@ -55,15 +48,7 @@ namespace pgr::msg
         const double x,
         const double y,
         const double z,
-        const double w)
-    {
-        geometry_msgs::msg::Quaternion quaternion;
-        quaternion.x = x;
-        quaternion.y = y;
-        quaternion.z = z;
-        quaternion.w = w;
-        return quaternion;
-    }
+        const double w);
 
     /**
      * `inline` function. Creates `geometry_msgs` `Vector3` with given
@@ -77,13 +62,7 @@ namespace pgr::msg
     inline geometry_msgs::msg::Vector3 create_vector3(
         const double x,
         const double y,
-        const double z)
-    {
-        geometry_msgs::msg::Vector3 vector;
-        vector.x = x;
-        vector.y = y;
-        vector.z = z;
-        return vector;
-    }
-
+        const double z);
 };
+
+#endif
