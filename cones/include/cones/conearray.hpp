@@ -12,6 +12,9 @@ namespace common::cones
     class ConeArray : public pgr::vector<Cone>
     {
     public:
+        ConeArray() = default;
+        ConeArray(const common_msgs::msg::ConeArray::SharedPtr &msg);
+
         ~ConeArray() override = default;
 
         std::pair<ConeArray, ConeArray> separate_cone_sides() const;

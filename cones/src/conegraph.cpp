@@ -137,4 +137,18 @@ namespace common::cones
 
         return g;
     }
+
+    ConeGraph::operator ConeArray() const
+    {
+        common::cones::ConeArray cone_array;
+
+        for (lemon::ListGraph::NodeIt n(graph_); n != lemon::INVALID; ++n)
+        {
+            cone_array.push_back(cones_[n]);
+        }
+
+        std::reverse(cone_array.begin(), cone_array.end());        
+
+        return cone_array;
+    }
 };

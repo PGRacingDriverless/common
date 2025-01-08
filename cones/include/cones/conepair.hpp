@@ -14,13 +14,13 @@ namespace common::cones
     {
     public:
         ConePair() = default;
-        ConePair(const Cone &cone_outer, const Cone &cone_inner);
+        ConePair(const Cone &cone_left, const Cone &cone_right);
 
-        Cone getOuter() const;
-        void setOuter(const Cone &cone_outer);
+        Cone getLeft() const;
+        void setLeft(const Cone &cone_left);
 
-        Cone getInner() const;
-        void setInner(const Cone &cone_inner);
+        Cone getRight() const;
+        void setRight(const Cone &cone_right);
 
         bool operator==(const ConePair &cone_pair) const;
         bool operator!=(const ConePair &cone_pair) const;
@@ -31,8 +31,8 @@ namespace common::cones
         explicit operator common_msgs::msg::ConePair() const;
 
     private:
-        Cone cone_outer;
-        Cone cone_inner;
+        Cone cone_left;
+        Cone cone_right;
     };
 };
 

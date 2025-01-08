@@ -12,7 +12,4 @@
 #include "cones/conearray.hpp"
 #include "cones/conepairarray.hpp"
 
-namespace common::cones
-{};
-
 #endif

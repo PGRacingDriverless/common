@@ -9,6 +9,8 @@
 
 #include "common_msgs/msg/cone_pair_array.hpp"
 
+#include "rclcpp/rclcpp.hpp"
+
 #include <utility>
 
 namespace common::cones
@@ -16,17 +18,23 @@ namespace common::cones
     class ConePairArray : public pgr::vector<ConePair>
     {
     public:
+        ConePairArray() = default;
+        ConePairArray(const common_msgs::msg::ConePairArray::SharedPtr msg);
+        ConePairArray(const ConeArray& left, const ConeArray& right);
+
         ~ConePairArray() override = default;
 
         std::pair<ConeArray, ConeArray> separate_cone_sides() const;
 
-        operator common_msgs::msg::ConePairArray() const;
+        explicit operator common_msgs::msg::ConePairArray() const;
 
         visualization_msgs::msg::Marker create_line_list_connecting(
             const std::string &frame_id,
             const common::viz::color_t &color,
             const std::string &name_space,
             const float marker_lifetime_s) const;
+
+        
     };
 };
 

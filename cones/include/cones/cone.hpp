@@ -14,8 +14,8 @@ namespace common::cones
     public:
         enum TrackSide
         {
-            OUTER,
-            INNER
+            LEFT,
+            RIGHT
         };
         enum Color
         {
@@ -27,6 +27,7 @@ namespace common::cones
         Cone() = default;
         Cone(double x, double y);
         Cone(double x, double y, TrackSide side, Color color);
+        Cone(const Cone& cone);
 
         double get_x() const;
         void set_x(double x);
@@ -49,7 +50,6 @@ namespace common::cones
         explicit operator common_msgs::msg::Cone() const;
 
         visualization_msgs::msg::Marker create_rviz_visualization_message(const std::string &name_space, const int marker_count) const;
-        static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id);
         visualization_msgs::msg::Marker create_text_label_marker (
             const std::string &text,
             const std::string &name_space,
@@ -60,10 +60,12 @@ namespace common::cones
             const float scale_y,
             const float scale_z) const;
 
+        static visualization_msgs::msg::Marker create_rviz_line_visualization_message(const std::string &name_space, const common::cones::Cone &cone1, const common::cones::Cone &cone2, const size_t marker_id);
+
     private:
         double m_x = 0;
         double m_y = 0;
-        TrackSide m_side = INNER;
+        TrackSide m_side = LEFT;
         Color m_color = YELLOW;
     };
 };

@@ -16,7 +16,45 @@ namespace pgr
         std::vector<T> vector_;
 
     public:
+        vector() = default;
+        explicit vector(typename std::vector<T>::size_type count)
+        {
+            vector_ = std::vector<T>(count);
+        }
+        vector(typename std::vector<T>::size_type count, const T &value)
+        {
+            vector_ = std::vector<T>(count, value);
+        }
+        vector(const vector &other)
+        {
+            vector_ = std::vector<T>(other.vector_);
+        }
+        vector(vector &&other)
+        {
+            vector_ = std::move(other.vector_);
+        }
+        vector(std::initializer_list<T> init)
+        {
+            vector_ = std::vector<T>(init);
+        }
+
         virtual ~vector() = default;
+
+        vector<T> &operator=(const vector<T> &other)
+        {
+            vector_ = other.vector_;
+            return *this;
+        }
+        vector<T> &operator=(vector<T> &&other) noexcept
+        {
+            vector_ = std::move(other.vector_);
+            return *this;
+        }
+        vector<T> &operator=(std::initializer_list<T> ilist)
+        {
+            vector_ = ilist;
+            return *this;
+        }
 
         // Element access
         typename std::vector<T>::reference operator[](typename std::vector<T>::size_type pos)

@@ -2,29 +2,29 @@
 
 namespace common::cones
 {
-    ConePair::ConePair(const Cone &cone_outer, const Cone &cone_inner) : cone_outer(cone_outer), cone_inner(cone_inner) {}
+    ConePair::ConePair(const Cone &cone_left, const Cone &cone_right) : cone_left(cone_left), cone_right(cone_right) {}
 
-    Cone ConePair::getOuter() const
+    Cone ConePair::getLeft() const
     {
-        return cone_outer;
+        return cone_left;
     }
-    void ConePair::setOuter(const Cone &cone_outer)
+    void ConePair::setLeft(const Cone &cone_left)
     {
-        this->cone_outer = cone_outer;
+        this->cone_left = cone_left;
     }
 
-    Cone ConePair::getInner() const
+    Cone ConePair::getRight() const
     {
-        return cone_inner;
+        return cone_right;
     }
-    void ConePair::setInner(const Cone &cone_inner)
+    void ConePair::setRight(const Cone &cone_right)
     {
-        this->cone_inner = cone_inner;
+        this->cone_right = cone_right;
     }
 
     bool ConePair::operator==(const ConePair &cone_pair) const
     {
-        return cone_pair.cone_inner == cone_inner && cone_pair.cone_outer == cone_outer;
+        return cone_pair.cone_left == cone_left && cone_pair.cone_right == cone_right;
     }
     bool ConePair::operator!=(const ConePair &cone_pair) const
     {
@@ -33,15 +33,15 @@ namespace common::cones
 
     void ConePair::read_from_json(const ptree::value_type &item)
     {
-        cone_outer.set_x(item.second.get<double>("cone1.x"));
-        cone_outer.set_y(item.second.get<double>("cone1.y"));
-        cone_outer.set_side(static_cast<common::cones::Cone::TrackSide>(item.second.get<int>("cone1.side")));
-        cone_outer.set_color(static_cast<common::cones::Cone::Color>(item.second.get<int>("cone1.color")));
+        cone_left.set_x(item.second.get<double>("cone1.x"));
+        cone_left.set_y(item.second.get<double>("cone1.y"));
+        cone_left.set_side(static_cast<common::cones::Cone::TrackSide>(item.second.get<int>("cone1.side")));
+        cone_left.set_color(static_cast<common::cones::Cone::Color>(item.second.get<int>("cone1.color")));
 
-        cone_inner.set_x(item.second.get<double>("cone2.x"));
-        cone_inner.set_y(item.second.get<double>("cone2.y"));
-        cone_inner.set_side(static_cast<common::cones::Cone::TrackSide>(item.second.get<int>("cone2.side")));
-        cone_inner.set_color(static_cast<common::cones::Cone::Color>(item.second.get<int>("cone2.color")));
+        cone_right.set_x(item.second.get<double>("cone2.x"));
+        cone_right.set_y(item.second.get<double>("cone2.y"));
+        cone_right.set_side(static_cast<common::cones::Cone::TrackSide>(item.second.get<int>("cone2.side")));
+        cone_right.set_color(static_cast<common::cones::Cone::Color>(item.second.get<int>("cone2.color")));
     }
     ConePair ConePair::get_from_json(const ptree::value_type &item)
     {
@@ -54,8 +54,8 @@ namespace common::cones
     {
         common_msgs::msg::ConePair cone_pair;
 
-        cone_pair.cone_inner = common_msgs::msg::Cone(cone_outer);
-        cone_pair.cone_outer = common_msgs::msg::Cone(cone_inner);
+        cone_pair.cone_left = common_msgs::msg::Cone(cone_left);
+        cone_pair.cone_right = common_msgs::msg::Cone(cone_right);
 
         return cone_pair;
     }

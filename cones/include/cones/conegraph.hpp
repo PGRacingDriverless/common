@@ -2,6 +2,7 @@
 #define COMMON_CONEGRAPH_HPP
 
 #include <vector>
+#include <algorithm>
 
 #include <lemon/list_graph.h>
 #include <lemon/path.h>
@@ -50,6 +51,8 @@ namespace common::cones
         const lemon::ListGraph::NodeMap<Cone>& cones() const;
 
         static ConeGraph create_neighborhood_graph(const ConeArray &cone_array, float neighborhood_distance);
+
+        operator ConeArray() const;
     };
 };
 

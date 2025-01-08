@@ -6,6 +6,14 @@ namespace common::cones
 
     Cone::Cone(double x, double y, TrackSide side, Color color) : m_x(x), m_y(y), m_side(side), m_color(color) {}
 
+    Cone::Cone(const Cone& cone)
+    {
+        m_x = cone.m_x;
+        m_y = cone.m_y;
+        m_side = cone.m_side;
+        m_color = cone.m_color;
+    }
+
     double Cone::get_x() const
     {
         return m_x;
@@ -89,10 +97,10 @@ namespace common::cones
 
         switch (m_side)
         {
-        case common::cones::Cone::TrackSide::INNER:
+        case common::cones::Cone::TrackSide::LEFT:
             marker.id = marker_count;
             break;
-        case common::cones::Cone::TrackSide::OUTER:
+        case common::cones::Cone::TrackSide::RIGHT:
             marker.id = 1000 - marker_count;
             break;
         default:
@@ -140,11 +148,11 @@ namespace common::cones
         marker_line.action = visualization_msgs::msg::Marker::ADD;
         marker_line.lifetime = rclcpp::Duration(2, 0);
 
-        if (cone1.get_side() == common::cones::Cone::TrackSide::INNER && cone2.get_side() == common::cones::Cone::TrackSide::INNER)
+        if (cone1.get_side() == common::cones::Cone::TrackSide::LEFT && cone2.get_side() == common::cones::Cone::TrackSide::LEFT)
         {
             marker_line.color = common::viz::YELLOW;
         }
-        else if (cone1.get_side() == common::cones::Cone::TrackSide::OUTER && cone2.get_side() == common::cones::Cone::TrackSide::OUTER)
+        else if (cone1.get_side() == common::cones::Cone::TrackSide::RIGHT && cone2.get_side() == common::cones::Cone::TrackSide::RIGHT)
         {
             marker_line.color = common::viz::BLUE;
         }
