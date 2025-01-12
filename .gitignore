@@ -1,30 +1,22 @@
-# Prerequisites
-*.d
+build/
+install/
+log/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Python cache
+**/__pycache__/
 
-# Precompiled Headers
-*.gch
-*.pch
+# VS Code
+.vscode
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# JetBrains
+.idea
 
-# Fortran module files
-*.mod
-*.smod
+# Emacs
+*~
+.#*
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# macOS
+.DS_Store
 
 # Executables
 *.exe
@@ -32,3 +24,7 @@
 *.app
 
 .vscode/
+
+# Generated docs
+*.dox
+*.wikidoc
