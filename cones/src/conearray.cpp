@@ -4,9 +4,9 @@ namespace common::cones
 {
     ConeArray::ConeArray(const common_msgs::msg::ConeArray::SharedPtr &msg)
     {
-        for(const auto& cone: msg->cone_array)
+        for (const auto &cone : msg->cone_array)
         {
-            push_back(Cone(cone.x, cone.y, cone.side, Cone::YELLOW));
+            push_back(Cone(cone.x, cone.y, Cone::TrackSide(cone.side), Cone::YELLOW));
         }
     }
 
@@ -54,7 +54,7 @@ namespace common::cones
         std::size_t marker_id = 0;
         visualization_msgs::msg::Marker cone_marker_list;
 
-        set_marker_parameters(
+        common::viz::set_marker_parameters(
             cone_marker_list,
             color,
             name_space,
@@ -84,7 +84,7 @@ namespace common::cones
         std::size_t marker_id = 0;
         visualization_msgs::msg::Marker cone_marker_list;
 
-        set_marker_parameters(
+        common::viz::set_marker_parameters(
             cone_marker_list,
             color,
             name_space,
@@ -97,8 +97,8 @@ namespace common::cones
 
         for (std::size_t i = 1; i < size(); i++)
         {
-            cone_marker_list.points.push_back(geometry_msgs::msg::Point(*this[i - 1]));
-            cone_marker_list.points.push_back(geometry_msgs::msg::Point(*this[i]));
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point((*this)[i - 1]));
+            cone_marker_list.points.push_back(geometry_msgs::msg::Point((*this)[i]));
         }
 
         marker_id++;
@@ -117,7 +117,7 @@ namespace common::cones
 
         for (Cone cone : *this)
         {
-            visualization_msgs::msg::Marker label = create_text_label_marker_from_cone(cone, text, name_space, frame_id, marker_lifetime_s, marker_id, 1, 1, 1);
+            visualization_msgs::msg::Marker label = cone.create_text_label_marker(text, name_space, frame_id, marker_lifetime_s, marker_id, 1, 1, 1);
             text_labels_array.markers.push_back(label);
             marker_id++;
         }

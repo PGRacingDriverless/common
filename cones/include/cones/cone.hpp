@@ -27,7 +27,7 @@ namespace common::cones
         Cone() = default;
         Cone(double x, double y);
         Cone(double x, double y, TrackSide side, Color color);
-        Cone(const Cone& cone);
+        Cone(const Cone &cone);
 
         double get_x() const;
         void set_x(double x);
@@ -50,7 +50,7 @@ namespace common::cones
         explicit operator common_msgs::msg::Cone() const;
 
         visualization_msgs::msg::Marker create_rviz_visualization_message(const std::string &name_space, const int marker_count) const;
-        visualization_msgs::msg::Marker create_text_label_marker (
+        visualization_msgs::msg::Marker create_text_label_marker(
             const std::string &text,
             const std::string &name_space,
             const std::string &frame_id,
