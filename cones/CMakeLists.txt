@@ -23,10 +23,11 @@ include_directories(include ${PCL_INCLUDE_DIRS})
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
     src/cone.cpp
-    src/conearray.cpp
-    src/conegraph.cpp
-    src/conepair.cpp
-    src/conepairarray.cpp
+    src/cone_array.cpp
+    src/cone_graph.cpp
+    src/cone_pair.cpp
+    src/cone_pair_array.cpp
+    src/cones.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})
