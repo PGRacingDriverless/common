@@ -18,6 +18,13 @@ log/
 # macOS
 .DS_Store
 
+# Executables
+*.exe
+*.out
+*.app
+
+.vscode/
+
 # Generated docs
 *.dox
 *.wikidoc
