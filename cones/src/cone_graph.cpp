@@ -122,7 +122,7 @@ ConeGraph ConeGraph::create_neighborhood_graph(const ConeArray &cone_array, floa
         {
             if (u != v)
             {
-                double distance = e_distance(
+                double distance = dist(
                     g.cones_[u].get_x(), g.cones_[u].get_y(),
                     g.cones_[v].get_x(), g.cones_[v].get_y());
                 if (distance < neighborhood_distance)
