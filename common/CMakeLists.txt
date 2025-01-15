@@ -27,7 +27,6 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
     src/math.cpp
     src/visualization.cpp
     src/msg.cpp
-    src/common.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})
