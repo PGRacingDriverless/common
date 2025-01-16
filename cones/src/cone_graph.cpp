@@ -22,7 +22,7 @@ ConeGraph::ConeGraph(const ConeGraph &other)
     copy.run();
 }
 
-lemon::ListGraph::Node ConeGraph::add_node(ConeNew cone)
+lemon::ListGraph::Node ConeGraph::add_node(Cone cone)
 {
     lemon::ListGraph::Node node = graph_.addNode();
     cones_[node] = cone;
@@ -71,8 +71,8 @@ visualization_msgs::msg::Marker ConeGraph::create_line_list(
         auto source_vertex = graph_.u(e);
         auto target_vertex = graph_.v(e);
 
-        const ConeNew &cone1 = cones_[source_vertex];
-        const ConeNew &cone2 = cones_[target_vertex];
+        const Cone &cone1 = cones_[source_vertex];
+        const Cone &cone2 = cones_[target_vertex];
 
         line_list.points.push_back(create_point(cone1.position.x, cone1.position.y, .0f));
         line_list.points.push_back(create_point(cone2.position.x, cone2.position.y, .0f));
@@ -100,21 +100,21 @@ const lemon::ListGraph::EdgeMap<double> &ConeGraph::edge_weight() const
     return edge_weight_;
 }
 
-lemon::ListGraph::NodeMap<ConeNew> &ConeGraph::cones()
+lemon::ListGraph::NodeMap<Cone> &ConeGraph::cones()
 {
     return cones_;
 }
-const lemon::ListGraph::NodeMap<ConeNew> &ConeGraph::cones() const
+const lemon::ListGraph::NodeMap<Cone> &ConeGraph::cones() const
 {
     return cones_;
 }
 
 ConeGraph ConeGraph::create_neighborhood_graph(
-    const std::vector<ConeNew> &cone_array,
+    const std::vector<Cone> &cone_array,
     float neighborhood_distance
 ) {
     ConeGraph g;
-    for (ConeNew cone : cone_array)
+    for (Cone cone : cone_array)
     {
         g.add_node(cone);
     }
@@ -138,9 +138,9 @@ ConeGraph ConeGraph::create_neighborhood_graph(
     return g;
 }
 
-ConeGraph::operator std::vector<ConeNew>() const
+ConeGraph::operator std::vector<Cone>() const
 {
-    std::vector<ConeNew> cone_array;
+    std::vector<Cone> cone_array;
 
     for (lemon::ListGraph::NodeIt n(graph_); n != lemon::INVALID; ++n)
     {
