@@ -14,7 +14,6 @@ endif()
 find_package(PCL REQUIRED)
 find_package(common REQUIRED)
 find_package(common_msgs REQUIRED)
-find_package(data_structures REQUIRED)
 
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()

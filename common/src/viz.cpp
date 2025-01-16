@@ -1,4 +1,4 @@
-#include "common/visualization.hpp"
+#include "common/viz.hpp"
 
 color_t create_color(float r, float g, float b, float a)
 {
