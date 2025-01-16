@@ -9,8 +9,7 @@
 
 #include "cones/cone.hpp"
 #include "cones/cone_pair.hpp"
-
-#include "cones/cone_array.hpp"
+#include "common/msg.hpp"
 
 #include "common/math.hpp"
 
@@ -22,7 +21,7 @@ class ConeGraph
 private:
     lemon::ListGraph graph_;
     lemon::ListGraph::EdgeMap<double> edge_weight_;
-    lemon::ListGraph::NodeMap<Cone> cones_;
+    lemon::ListGraph::NodeMap<ConeNew> cones_;
 
 public:
     ConeGraph();
@@ -30,7 +29,7 @@ public:
 
     ~ConeGraph() = default;
 
-    lemon::ListGraph::Node add_node(Cone cone);
+    lemon::ListGraph::Node add_node(ConeNew cone);
     lemon::ListGraph::Edge add_edge(lemon::ListGraph::Node u, lemon::ListGraph::Node v, double weight);
 
     void operator=(const ConeGraph &rhs);
@@ -47,12 +46,15 @@ public:
     lemon::ListGraph::EdgeMap<double> &edge_weight();
     const lemon::ListGraph::EdgeMap<double> &edge_weight() const;
 
-    lemon::ListGraph::NodeMap<Cone> &cones();
-    const lemon::ListGraph::NodeMap<Cone> &cones() const;
+    lemon::ListGraph::NodeMap<ConeNew> &cones();
+    const lemon::ListGraph::NodeMap<ConeNew> &cones() const;
 
-    static ConeGraph create_neighborhood_graph(const ConeArray &cone_array, float neighborhood_distance);
+    static ConeGraph create_neighborhood_graph(
+        const std::vector<ConeNew> &cone_array,
+        float neighborhood_distance
+    );
 
-    operator ConeArray() const;
+    operator std::vector<ConeNew>() const;
 };
 
 #endif

@@ -7,6 +7,32 @@
 
 #include <string>
 
+//
+#include <pcl/point_types.h>
+
+enum ColorNew {
+    CBLUE,
+    CYELLOW,
+    CORANGE
+};
+
+enum SideNew {
+    LEFT,
+    RIGHT
+};
+
+struct ConeNew {
+    ColorNew color;
+    SideNew side;
+    pcl::PointXY position;
+};
+
+struct ConePairNew {
+    ConeNew left;
+    ConeNew right;
+};
+//
+
 class Cone
 {
 public:
