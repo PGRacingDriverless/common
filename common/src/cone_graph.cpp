@@ -1,4 +1,4 @@
-#include "cones/cone_graph.hpp"
+#include "common/cone_graph.hpp"
 
 std::vector<lemon::ListGraph::Node> get_adjacent_vertices(const lemon::ListGraph &g, lemon::ListGraph::Node u)
 {

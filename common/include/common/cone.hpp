@@ -1,13 +1,13 @@
 #ifndef COMMON_CONE_HPP
 #define COMMON_CONE_HPP
 
-#include "visualization_msgs/msg/marker.hpp"
-#include "common/viz.hpp"
 #include <boost/property_tree/ptree.hpp>
+#include <pcl/point_types.h>
+#include <visualization_msgs/msg/marker.hpp>
+
+#include "common/viz.hpp"
 
 #include <string>
-
-#include <pcl/point_types.h>
 
 using boost::property_tree::ptree;
 

@@ -1,4 +1,4 @@
-#include "cones/cone.hpp"
+#include "common/cone.hpp"
 
 ConePair get_cone_pair_from_json(const ptree::value_type &item)
 {

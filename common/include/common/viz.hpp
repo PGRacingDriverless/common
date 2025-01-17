@@ -1,21 +1,17 @@
 #ifndef COMMON_VISUALIZATION_HPP
 #define COMMON_VISUALIZATION_HPP
 
-#include "common/math.hpp"
-
-#include "visualization_msgs/msg/marker.hpp"
-#include "visualization_msgs/msg/marker_array.hpp"
-
-#include "geometry_msgs/msg/transform_stamped.hpp"
-#include "tf2/LinearMath/Quaternion.h"
-#include "tf2_ros/transform_broadcaster.h"
-
-#include <boost/geometry/geometries/geometries.hpp>
-
-#include "std_msgs/msg/color_rgba.hpp"
-
 #include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/geometries.hpp>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_ros/transform_broadcaster.h>
+#include <geometry_msgs/msg/transform_stamped.hpp>
+#include <std_msgs/msg/color_rgba.hpp>
+#include <visualization_msgs/msg/marker.hpp>
+#include <visualization_msgs/msg/marker_array.hpp>
+
+#include "common/math.hpp"
 
 typedef double coordinate_type;
 typedef boost::geometry::model::d2::point_xy<coordinate_type> point;

@@ -1,16 +1,15 @@
 #ifndef COMMON_CONEGRAPH_HPP
 #define COMMON_CONEGRAPH_HPP
 
-#include <vector>
-#include <algorithm>
-
 #include <lemon/list_graph.h>
 #include <lemon/path.h>
 
-#include "cones/cone.hpp"
+#include "common/cone.hpp"
+#include "common/math.hpp"
 #include "common/msg.hpp"
 
-#include "common/math.hpp"
+#include <vector>
+#include <algorithm>
 
 std::vector<lemon::ListGraph::Node> get_adjacent_vertices(
     const lemon::ListGraph &g, lemon::ListGraph::Node u);

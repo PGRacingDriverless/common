@@ -2,11 +2,9 @@
 #define COMMON_MATH_HPP
 
 #include <pcl/point_types.h>
-#include "geometry_msgs/msg/pose.hpp"
-#include "geometry_msgs/msg/quaternion.hpp"
-
+#include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
 #include <cmath>
-
 
 double dist(const double x1, const double y1, const double x2, const double y2);
 
