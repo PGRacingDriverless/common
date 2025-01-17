@@ -52,7 +52,7 @@ visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const s
 
 visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
     const std::string &name_space,
-    const boost::geometry::model::polygon<point> &final_match_area,
+    const std::vector<geometry_msgs::msg::Point> &final_match_area, // random placeholder instead of boost
     const size_t marker_id,
     const color_t &color)
 {
@@ -72,10 +72,10 @@ visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
     marker_polygon_area.color.a = 0.5;
 
     geometry_msgs::msg::Point polygon_point;
-    for (const auto &item : final_match_area.outer())
+    for (const auto &item : final_match_area) // .outer()
     {
-        polygon_point.x = item.x();
-        polygon_point.y = item.y();
+        polygon_point.x = item.x;
+        polygon_point.y = item.y;
         polygon_point.z = 0.0;
         marker_polygon_area.points.push_back(polygon_point);
     }

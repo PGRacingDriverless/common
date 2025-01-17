@@ -1,9 +1,6 @@
 #ifndef COMMON_VISUALIZATION_HPP
 #define COMMON_VISUALIZATION_HPP
 
-#include <boost/geometry/geometries/point.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/geometries.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
@@ -14,7 +11,6 @@
 #include "common/math.hpp"
 
 typedef double coordinate_type;
-typedef boost::geometry::model::d2::point_xy<coordinate_type> point;
 
 using color_t = std_msgs::msg::ColorRGBA;
 
@@ -42,7 +38,7 @@ visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const s
 
 visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
     const std::string &name_space,
-    const boost::geometry::model::polygon<point> &final_match_area,
+    const std::vector<geometry_msgs::msg::Point> &final_match_area,
     const size_t marker_id,
     const color_t &color);
 

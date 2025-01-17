@@ -45,7 +45,6 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
     src/viz.cpp
     src/cone.cpp
     src/cone_graph.cpp
-    src/cones.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
