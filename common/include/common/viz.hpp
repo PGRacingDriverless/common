@@ -9,6 +9,8 @@
 #include <visualization_msgs/msg/marker_array.hpp>
 
 #include "common/math.hpp"
+#include "common/cone.hpp"
+#include "common/msg.hpp"
 
 typedef double coordinate_type;
 
@@ -28,19 +30,22 @@ const color_t GRAY = create_color(0.5, 0.5, 0.5, 1.0);
 
 void set_marker_color(visualization_msgs::msg::Marker &marker, const color_t &color);
 
-visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space,
-                                                                            const double start_x,
-                                                                            const double start_y,
-                                                                            const double end_x,
-                                                                            const double end_y,
-                                                                            const size_t marker_id,
-                                                                            const color_t &color);
+visualization_msgs::msg::Marker create_rviz_vector_visualization_message(
+    const std::string &name_space,
+    const double start_x,
+    const double start_y,
+    const double end_x,
+    const double end_y,
+    const size_t marker_id,
+    const color_t &color
+);
 
 visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
     const std::string &name_space,
     const std::vector<geometry_msgs::msg::Point> &final_match_area,
     const size_t marker_id,
-    const color_t &color);
+    const color_t &color
+);
 
 visualization_msgs::msg::Marker create_circle(
     const float x,
@@ -49,7 +54,8 @@ visualization_msgs::msg::Marker create_circle(
     const std::string &frame_id,
     const color_t &color,
     const std::string &name_space,
-    const float marker_lifetime_s);
+    const float marker_lifetime_s
+);
 
 // sets parameters for given marker
 void set_marker_parameters(
@@ -63,6 +69,24 @@ void set_marker_parameters(
     const int32_t action,
     const float scale_x,
     const float scale_y,
-    const float scale_z);
+    const float scale_z
+);
+
+
+visualization_msgs::msg::Marker create_line_list_connecting(
+    const std::vector<ConePair> &cone_pairs,
+    const std::string &frame_id,
+    const color_t &color,
+    const std::string &name_space,
+    const float marker_lifetime_s
+);
+
+visualization_msgs::msg::Marker create_cube_list(
+    const std::vector<Cone> &cones,
+    const std::string &frame_id,
+    const color_t &color,
+    const std::string &name_space,
+    const float marker_lifetime_s
+);
 
 #endif

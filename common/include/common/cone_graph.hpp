@@ -7,6 +7,9 @@
 #include "common/cone.hpp"
 #include "common/math.hpp"
 #include "common/msg.hpp"
+#include "common/viz.hpp"
+
+#include <visualization_msgs/msg/marker.hpp>
 
 #include <vector>
 #include <algorithm>

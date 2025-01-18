@@ -163,3 +163,65 @@ void set_marker_parameters(
     uint32_t nanoseconds = static_cast<uint32_t>((marker_lifetime_s - seconds) * 1e9);
     marker.lifetime = rclcpp::Duration(seconds, nanoseconds);
 }
+
+visualization_msgs::msg::Marker create_line_list_connecting(
+    const std::vector<ConePair> &cone_pairs,
+    const std::string &frame_id,
+    const color_t &color,
+    const std::string &name_space,
+    const float marker_lifetime_s )
+{
+    std::size_t marker_id = 0;
+    visualization_msgs::msg::Marker cone_marker_list;
+
+    set_marker_parameters(
+        cone_marker_list,
+        color,
+        name_space,
+        frame_id,
+        marker_lifetime_s,
+        marker_id,
+        visualization_msgs::msg::Marker::LINE_LIST,
+        visualization_msgs::msg::Marker::ADD,
+        0.05, 0.05, 0.05);
+
+    for (std::size_t i = 0; i < cone_pairs.size(); i++)
+    {
+        cone_marker_list.points.push_back(create_point(cone_pairs[i].left.position.x, cone_pairs[i].left.position.y, 0.0));
+        cone_marker_list.points.push_back(create_point(cone_pairs[i].right.position.x, cone_pairs[i].right.position.y, 0.0));
+    }
+
+    marker_id++;
+    return cone_marker_list;
+}
+
+visualization_msgs::msg::Marker create_cube_list(
+    const std::vector<Cone> &cones,
+    const std::string &frame_id,
+    const color_t &color,
+    const std::string &name_space,
+    const float marker_lifetime_s )
+{
+
+    std::size_t marker_id = 0;
+    visualization_msgs::msg::Marker cone_marker_list;
+
+    set_marker_parameters(
+        cone_marker_list,
+        color,
+        name_space,
+        frame_id,
+        marker_lifetime_s,
+        marker_id,
+        visualization_msgs::msg::Marker::CUBE_LIST,
+        visualization_msgs::msg::Marker::ADD,
+        1, 1, 1);
+
+    for (Cone cone : cones)
+    {
+        cone_marker_list.points.push_back(create_point(cone.position.x, cone.position.y, 0.0));
+    }
+
+    marker_id++;
+    return cone_marker_list;
+}
