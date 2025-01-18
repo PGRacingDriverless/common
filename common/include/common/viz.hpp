@@ -30,23 +30,6 @@ const color_t GRAY = create_color(0.5, 0.5, 0.5, 1.0);
 
 void set_marker_color(visualization_msgs::msg::Marker &marker, const color_t &color);
 
-visualization_msgs::msg::Marker create_rviz_vector_visualization_message(
-    const std::string &name_space,
-    const double start_x,
-    const double start_y,
-    const double end_x,
-    const double end_y,
-    const size_t marker_id,
-    const color_t &color
-);
-
-visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
-    const std::string &name_space,
-    const std::vector<geometry_msgs::msg::Point> &final_match_area,
-    const size_t marker_id,
-    const color_t &color
-);
-
 visualization_msgs::msg::Marker create_circle(
     const float x,
     const float y,

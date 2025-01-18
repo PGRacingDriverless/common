@@ -4,6 +4,7 @@
 #include <pcl/point_types.h>
 
 #include <string>
+#include "common_msgs/msg/cone_array.hpp"
 
 enum Color {
     CBLUE,
@@ -26,10 +27,10 @@ struct ConePair {
     Cone left;
     Cone right;
 };
-//
+//  
 
-// ConePair get_cone_pair_from_json(const ptree::value_type &item);
 std::pair<std::vector<Cone>, std::vector<Cone>> separate_cone_sides(const std::vector<Cone> &cone_array);
+std::pair<std::vector<Cone>, std::vector<Cone>> separate_cone_sides_msg(const common_msgs::msg::ConeArray::SharedPtr cone_array_msg);
 std::pair<std::vector<Cone>, std::vector<Cone>> separate_cone_pair_sides(const std::vector<ConePair> &cone_pair_array);
 
 #endif

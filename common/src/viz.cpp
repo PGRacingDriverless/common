@@ -10,79 +10,6 @@ color_t create_color(float r, float g, float b, float a)
     return color;
 }
 
-visualization_msgs::msg::Marker create_rviz_vector_visualization_message(const std::string &name_space,
-                                                                         const double start_x,
-                                                                         const double start_y,
-                                                                         const double end_x,
-                                                                         const double end_y,
-                                                                         const size_t marker_id,
-                                                                         const color_t &color)
-{
-    // Config marker to display vector in RViz2
-    visualization_msgs::msg::Marker direction_vector;
-    direction_vector.header.stamp = rclcpp::Time();
-    direction_vector.header.frame_id = "/map";
-    direction_vector.ns = name_space;
-    direction_vector.id = marker_id;
-    direction_vector.type = visualization_msgs::msg::Marker::ARROW;
-    direction_vector.action = visualization_msgs::msg::Marker::ADD;
-    direction_vector.lifetime = rclcpp::Duration(2, 0);
-
-    geometry_msgs::msg::Point start_point;
-    start_point.x = start_x;
-    start_point.y = start_y;
-    start_point.z = 0;
-
-    geometry_msgs::msg::Point end_point;
-    end_point.x = end_x;
-    end_point.y = end_y;
-    end_point.z = 0;
-
-    direction_vector.points.push_back(start_point);
-    direction_vector.points.push_back(end_point);
-
-    direction_vector.scale.x = 0.2; // Shaft diameter
-    direction_vector.scale.y = 0.4; // Head diameter
-    direction_vector.scale.z = 0.4; // Head length
-
-    set_marker_color(direction_vector, color);
-
-    return direction_vector;
-}
-
-visualization_msgs::msg::Marker create_rviz_polygon_visualization_message(
-    const std::string &name_space,
-    const std::vector<geometry_msgs::msg::Point> &final_match_area, // random placeholder instead of boost
-    const size_t marker_id,
-    const color_t &color)
-{
-
-    // Config marker to display final contour in RViz2
-    visualization_msgs::msg::Marker marker_polygon_area;
-    marker_polygon_area.header.stamp = rclcpp::Time();
-    marker_polygon_area.header.frame_id = "/map";
-    marker_polygon_area.ns = name_space;
-    marker_polygon_area.id = marker_id; // Adjust id as needed
-    marker_polygon_area.type = visualization_msgs::msg::Marker::LINE_STRIP;
-    marker_polygon_area.action = visualization_msgs::msg::Marker::ADD;
-    marker_polygon_area.scale.x = 0.1;
-    marker_polygon_area.lifetime = rclcpp::Duration(2, 0);
-
-    set_marker_color(marker_polygon_area, color);
-    marker_polygon_area.color.a = 0.5;
-
-    geometry_msgs::msg::Point polygon_point;
-    for (const auto &item : final_match_area) // .outer()
-    {
-        polygon_point.x = item.x;
-        polygon_point.y = item.y;
-        polygon_point.z = 0.0;
-        marker_polygon_area.points.push_back(polygon_point);
-    }
-
-    return marker_polygon_area;
-}
-
 visualization_msgs::msg::Marker create_circle(
     const float x,
     const float y,
@@ -90,8 +17,8 @@ visualization_msgs::msg::Marker create_circle(
     const std::string &frame_id,
     const color_t &color,
     const std::string &name_space,
-    const float marker_lifetime_s)
-{
+    const float marker_lifetime_s
+) {
 
     size_t marker_id = 0;
 
@@ -143,8 +70,8 @@ void set_marker_parameters(
     const int32_t action,
     const float scale_x,
     const float scale_y,
-    const float scale_z)
-{
+    const float scale_z
+) {
 
     marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
@@ -169,8 +96,8 @@ visualization_msgs::msg::Marker create_line_list_connecting(
     const std::string &frame_id,
     const color_t &color,
     const std::string &name_space,
-    const float marker_lifetime_s )
-{
+    const float marker_lifetime_s 
+) {
     std::size_t marker_id = 0;
     visualization_msgs::msg::Marker cone_marker_list;
 
@@ -200,8 +127,8 @@ visualization_msgs::msg::Marker create_cube_list(
     const std::string &frame_id,
     const color_t &color,
     const std::string &name_space,
-    const float marker_lifetime_s )
-{
+    const float marker_lifetime_s 
+) {
 
     std::size_t marker_id = 0;
     visualization_msgs::msg::Marker cone_marker_list;
