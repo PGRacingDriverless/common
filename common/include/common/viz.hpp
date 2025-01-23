@@ -18,15 +18,16 @@ using color_t = std_msgs::msg::ColorRGBA;
 
 color_t create_color(float r, float g, float b, float a);
 
-const color_t BLUE = create_color(0.0, 0.0, 1.0, 1.0);
-const color_t LIGHT_BLUE = create_color(0.7, 0.7, 1.0, 1.0);
-const color_t BLUEISH = create_color(0.3, 0.3, 0.8, 1.0);
-const color_t YELLOW = create_color(1.0, 1.0, 0.0, 1.0);
-const color_t LIGHT_YELLOW = create_color(1.0, 1.0, 0.7, 1.0);
-const color_t YELLOWISH = create_color(0.8, 0.8, 0.3, 1.0);
-const color_t ORANGE = create_color(1.0, 0.5, 0.0, 1.0);
-const color_t RED = create_color(1.0, 0.0, 0.0, 1.0);
-const color_t GRAY = create_color(0.5, 0.5, 0.5, 1.0);
+const color_t VIZ_BLUE = create_color(0.0, 0.0, 1.0, 1.0);
+const color_t VIZ_LIGHT_BLUE = create_color(0.678, 0.847, 0.902, 1.0);
+const color_t VIZ_BLUEISH = create_color(0.3, 0.3, 0.8, 1.0);
+const color_t VIZ_YELLOW = create_color(1.0, 1.0, 0.0, 1.0);
+const color_t VIZ_LIGHT_YELLOW = create_color(1.0, 1.0, 0.878, 1.0);
+const color_t VIZ_YELLOWISH = create_color(0.9, 0.9, 0.4, 1.0);
+const color_t VIZ_ORANGE = create_color(1.0, 0.647, 0.0, 1.0);
+const color_t VIZ_RED = create_color(1.0, 0.0, 0.0, 1.0);
+const color_t VIZ_GRAY = create_color(0.5, 0.5, 0.5, 1.0);
+
 
 void set_marker_color(visualization_msgs::msg::Marker &marker, const color_t &color);
 

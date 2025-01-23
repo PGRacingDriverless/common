@@ -9,13 +9,14 @@ std::pair<std::vector<Cone>, std::vector<Cone>> separate_cone_sides(const std::v
         new_cone.position.x = cone.position.x;
         new_cone.position.y = cone.position.y;
 
-        if (cone.side == 0) {
+        if (cone.color == Color::BLUE) {
             new_cone.side = Side::LEFT;
-            new_cone.color = Color::CBLUE;
+            new_cone.color = Color::BLUE;
             left_cone_array.push_back(new_cone);
-        } else {
+        } 
+        else if (cone.color == Color::YELLOW) {
             new_cone.side = Side::RIGHT;
-            new_cone.color = Color::CYELLOW;
+            new_cone.color = Color::YELLOW;
             right_cone_array.push_back(new_cone);
         }
     }
@@ -31,13 +32,14 @@ std::pair<std::vector<Cone>, std::vector<Cone>> separate_cone_sides_msg(const co
         new_cone.position.x = cone.x;
         new_cone.position.y = cone.y;
 
-        if (cone.side == 0) {
+        if (cone.color == Color::BLUE) {
             new_cone.side = Side::LEFT;
-            new_cone.color = Color::CBLUE;
+            new_cone.color = Color::BLUE;
             left_cone_array.push_back(new_cone);
-        } else {
+        } 
+        else if (cone.color == Color::YELLOW) {
             new_cone.side = Side::RIGHT;
-            new_cone.color = Color::CYELLOW;
+            new_cone.color = Color::YELLOW;
             right_cone_array.push_back(new_cone);
         }
     }

@@ -6,13 +6,15 @@
 #include <string>
 #include "common_msgs/msg/cone_array.hpp"
 
-enum Color {
-    CBLUE,
-    CYELLOW,
-    CORANGE
+enum Color : unsigned char {
+    UNKNOWN,
+    BLUE,
+    YELLOW,
+    ORANGE,
+    LARGE_ORANGE
 };
 
-enum Side {
+enum Side : unsigned char {
     LEFT,
     RIGHT
 };
