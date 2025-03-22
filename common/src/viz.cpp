@@ -142,7 +142,7 @@ visualization_msgs::msg::Marker create_cube_list(
         marker_id,
         visualization_msgs::msg::Marker::CUBE_LIST,
         visualization_msgs::msg::Marker::ADD,
-        1, 1, 1);
+        0.5, 0.5, 0.5);
 
     for (Cone cone : cones)
     {
