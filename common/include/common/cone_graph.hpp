@@ -4,6 +4,8 @@
 #include <lemon/list_graph.h>
 #include <lemon/path.h>
 
+#include <pcl/common/distances.h>
+
 #include "common/cone.hpp"
 #include "common/math.hpp"
 #include "common/msg.hpp"

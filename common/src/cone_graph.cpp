@@ -124,9 +124,9 @@ ConeGraph ConeGraph::create_neighborhood_graph(
         {
             if (u != v)
             {
-                double distance = dist(
-                    g.cones_[u].position.x, g.cones_[u].position.y,
-                    g.cones_[v].position.x, g.cones_[v].position.y);
+                double distance = pcl::euclideanDistance(g.cones()[u].position,
+                g.cones()[v].position);
+ 
                 if (distance < neighborhood_distance)
                 {
                     g.add_edge(u, v, distance);
